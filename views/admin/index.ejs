@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('parts/head.ejs') %>
+</head>
+<body>
+    <div class="container-scroller">
+        <%- include('parts/navbar.ejs') %>
+
+        <div class="container-fluid page-body-wrapper">
+            <%- include('parts/sidebar.ejs') %>
+            <div class="main-panel">
+                <%- include('parts/panel.ejs') %>
+                <footer class="footer">
+                    <%- include('parts/footer.ejs') %>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <%- include('parts/scripts.ejs') %>
+</body>
+</html>

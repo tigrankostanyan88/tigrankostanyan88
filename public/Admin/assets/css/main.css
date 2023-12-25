@@ -1,0 +1,94 @@
+.add_test {
+    width: 95%;
+    margin: 0 auto;
+    min-height: 300px;
+    background: #0b3ccc;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.add_test  input  {
+    margin-bottom: 15px;
+    padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.add_test button {
+        padding: 10px;
+        margin-bottom: 15px;
+    } 
+
+.add_test textarea {
+        max-width: 100%;
+        min-width: 100%;
+        min-height: 60px;
+        border: none;
+        border-radius: 5px;
+        padding: 15px;
+        outline: none;
+        -ms-overflow-style: none; 
+      scrollbar-width: none; 
+}
+
+
+
+.add_test .head {
+        margin-bottom: 20px;
+}
+.add_test .group {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        background: #8e96ee;
+        border-radius: 10px;
+        margin-bottom: 20px;
+}
+
+.add_test .group .remove_question {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        padding: 5px 10px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        color: rgb(255, 255, 255);
+        font-weight: bold;
+        background: rgb(246, 48, 48);
+        border-radius: 5px;
+        border: 1px solid red;
+    }
+
+
+.add_test .group select {
+        border: none;
+        outline: none;
+        height: max-content;
+        padding: 5px;
+        border-radius: 5px;
+        position: absolute;
+        right: 20px;
+        bottom: 0;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+
+.add_test  .btn {
+        border: 1px solid blue;
+        background: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all .4s ease-in-out;
+    }
+
+
+.add_test .btn:hover {
+        background: blue;
+        color: #fff;
+    }
+
