@@ -5,86 +5,135 @@ textarea.forEach(el => {
 });
 
 
-let questions = document.querySelector('.questions');
 let addQuestions = document.querySelector('.add_questions');
 let count = 1;
 
-addQuestions.addEventListener('click', (e) => {
-    let removeBtn = document.createElement('button');
-    let group = document.createElement('div');
-    let textarea = document.createElement('textarea');
-    let select = document.createElement('select');
-    let option = document.createElement('option');
+function createElement() {
+    let questionList = document.querySelector('.question_list');
 
-    removeBtn.classList.add('remove_question');
-    removeBtn.innerHTML = 'X';
-    select.name = 'correct';
-    textarea.name = 'text';
-    textarea.placeholder = 'Պատասխանի տարբերակ ' + count++;
+    let questions = document.createElement('div');
+    questions.classList.add('question');
+    questionList.appendChild(questions);
 
-    group.classList.add('group');
+    let answerList = document.createElement('div');
+    answerList.classList.add('answerList');
+    questions.appendChild(answerList);
 
-    // questions > group
-    group.appendChild(removeBtn);
-    questions.appendChild(group);
-    group.appendChild(textarea);
-    group.appendChild(select);
+    let img = document.createElement('input');
+    img.name = 'img';
+    img.placeholder = 'Լուսանկարի հասցեն (URL)';
+    let testQuestion = document.createElement('textarea');
+    testQuestion.classList.add('testQuestion')
+    testQuestion.name = 'question';
+    testQuestion.placeholder = 'Թեստի հարցը';
 
-    select.appendChild(option);
-
-    option.innerHTML = 'Ճիշտ';
-    option.value = true;
-
-    select.appendChild(option.cloneNode(true));
-    option.innerHTML = 'սխալ';
-    option.value = false;
+    questions.appendChild(img);
+    questions.appendChild(testQuestion);
 
 
-    let removeQuestionBtn = document.querySelectorAll('.remove_question');
-    removeQuestionBtn.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log(btn.parentElement.remove());
+    let addAnaswer = document.createElement('button');
+    addAnaswer.classList.add('add-answer');
+    addAnaswer.type = 'button';
+    addAnaswer.innerHTML = 'Ավելացնել հարց';
+    questions.appendChild(addAnaswer);
+
+    let answerBtn = document.querySelectorAll('.add-answer');
+    let count = 1;
+
+    answerBtn.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            let answerBox = document.createElement('div');
+            answerBox.classList.add('answerBox');
+
+            let answer = document.createElement('textarea');
+            let select = document.createElement('select');
+            let option = document.createElement('option');
+            let remove = document.createElement('button');
+            remove.innerHTML = 'X';
+            remove.classList.add('remove');
+
+            select.name = 'correct';
+            answer.name = 'text';
+            answer.placeholder = `Պատասխան-${count++}`;
+            option.name = 'text';
+            option.innerHTML = 'սխալ';
+            option.value = false;
+
+            select.appendChild(option.cloneNode(true));
+            option.innerHTML = 'Ճիշտ';
+            option.value = true;
+
+            answerList.appendChild(answerBox);
+            answerBox.appendChild(answer);
+            answerBox.appendChild(remove);
+            answerBox.appendChild(select);
+            select.appendChild(option);
+
+
+            let removeQuestion = document.querySelectorAll('.remove');
+            removeQuestion.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    btn.parentElement.remove()
+                })
+            })
         })
-    })
-});
+    });
+}
 
-// Select the form with the class 'add_test'
+
+addQuestions.addEventListener('click', () => {
+    let questionCountEl = document.querySelector('.questionCount');
+
+    questionCountEl.innerHTML = `Թեստը ունի ${count++} հարց`;
+    createElement();
+})
+
+
+
 const addTestForm = document.querySelector('.add_test');
 
-// Attach a submit event listener to the form
-addTestForm.addEventListener("submit", (event) => {
-    // Prevent the default form submission behavior
-    event.preventDefault();
+// Attach a submit event
+addTestForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    constructObject()
+});
 
-    // Create a FormData object to capture form data
-    const formData = new FormData(addTestForm);
 
-    // Initialize an object to hold the form data
-    const formDataObject = {
-        answers: [] // Initialize answers as an array
+
+function constructObject() {
+    // Initialize the object structure
+
+    // Create an empty Set
+    let uniqueSet = new Set();
+
+    let resultObject = {
+        title: "",
+        questions: []
     };
 
-    // Iterate over form data and populate the object
-    formData.forEach((value, key) => {
-        formDataObject[key] = value;
 
-        // Check if the key is 'text' to structure answers
-        if (key === 'text') {
-            formDataObject.answers.push({ [key]: value });
-        }
+    // Extract title
+    resultObject.title = addTestForm.title.value;
+
+    let question = {};
+   
+    addTestForm.querySelectorAll('input, textarea').forEach((field) => {
+        if(field.name !== 'title') {            
+            if(field.name.startsWith('img')) {
+                question = {
+                    question: field.value,
+                    img: field.value,
+                    answers: []
+                };
+            } else if(field.name.startsWith('question')) {
+                question.question = field.value
+            }
+            uniqueSet.add(question);
+        }          
     });
-
-    // Log the structured form data object
-    console.log(formDataObject);
-
-    // axios.post('/api/v1/course', {
-    //     // data: formDataObject
-    //   })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-});
+    
+    let uniqueArray = Array.from(uniqueSet);
+    resultObject.questions = uniqueArray;
+    console.log(resultObject);
+}

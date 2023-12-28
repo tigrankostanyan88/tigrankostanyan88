@@ -1,13 +1,34 @@
+.questionCount {
+    min-width: 30px;
+    padding: 5px 10px;
+    background: blue;
+    color: #fff;
+    position: fixed;
+    top: 50%;
+    left: 0;
+}
+
 .add_test {
-    width: 95%;
-    margin: 0 auto;
+    width: 1200px;
     min-height: 300px;
-    background: #0b3ccc;
+    background: #0080ff;
     padding: 30px;
     border-radius: 20px;
 }
 
-.add_test  input  {
+.add_test .question_list .question .testQuestion {
+    margin-bottom: 40px;
+}
+.add_test .question_list .question {
+    border: 1px solid #d3d3d3;
+    padding: 15px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+.add_test .questions input {
+    margin-bottom: 15px;
+}
+input {
     margin-bottom: 15px;
     padding: 10px;
     outline: none;
@@ -15,80 +36,71 @@
     border-radius: 5px;
     width: 100%;
 }
-
+.add_test .question {
+    display: flex;
+    flex-direction: column;
+}
+.add_test .question .add-answer {
+    order: 2;
+    background: #fff;
+}
+.add_test .question .answerList {
+    order: 1;
+} 
+.add_test .question .answerList .answerBox {
+    margin-bottom: 20px;
+    position: relative;
+} 
+.add_test .question .answerList .answerBox .remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    background: red;
+    padding: 5px 15px;
+} 
+.add_test .question .answerList .answerBox select {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 5px 20px;
+    border: 1px solid blue;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    cursor: pointer;
+}
 .add_test button {
-        padding: 10px;
-        margin-bottom: 15px;
-    } 
-
-.add_test textarea {
-        max-width: 100%;
-        min-width: 100%;
-        min-height: 60px;
-        border: none;
-        border-radius: 5px;
-        padding: 15px;
-        outline: none;
-        -ms-overflow-style: none; 
-      scrollbar-width: none; 
+    padding: 10px;
+    margin-bottom: 15px;
+    width: max-content;
+    outline: none;
+    border: 1px solid blue;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+}
+.add_test button:hover {
+    background: blue;
+}
+.answerList textarea {
+    min-height: 80px;
+}
+textarea {
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 60px;
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    outline: none;
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
 }
 
-
-
-.add_test .head {
-        margin-bottom: 20px;
+.add_test .title {
+   margin-bottom: 20px;
 }
-.add_test .group {
-        position: relative;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        background: #8e96ee;
-        border-radius: 10px;
-        margin-bottom: 20px;
-}
-
-.add_test .group .remove_question {
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        padding: 5px 10px;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        color: rgb(255, 255, 255);
-        font-weight: bold;
-        background: rgb(246, 48, 48);
-        border-radius: 5px;
-        border: 1px solid red;
-    }
-
-
-.add_test .group select {
-        border: none;
-        outline: none;
-        height: max-content;
-        padding: 5px;
-        border-radius: 5px;
-        position: absolute;
-        right: 20px;
-        bottom: 0;
-        font-size: 18px;
-        cursor: pointer;
-    }
-
-
-.add_test  .btn {
-        border: 1px solid blue;
-        background: #fff;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: all .4s ease-in-out;
-    }
-
-
-.add_test .btn:hover {
-        background: blue;
-        color: #fff;
-    }
 
