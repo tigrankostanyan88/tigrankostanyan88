@@ -96,44 +96,28 @@ const addTestForm = document.querySelector('.add_test');
 // Attach a submit event
 addTestForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    constructObject()
+    constructObject();
 });
 
-
-
 function constructObject() {
-    // Initialize the object structure
-
-    // Create an empty Set
-    let uniqueSet = new Set();
-
-    let resultObject = {
-        title: "",
+    let testObject = {
+        title: addTestForm.elements.title.value,
         questions: []
     };
 
+    for (let i = 0; i < addTestForm.elements.length; i++) {
+        let field = addTestForm.elements[i];
+        if ((field.name === 'question' || field.name === 'img')) {
 
-    // Extract title
-    resultObject.title = addTestForm.title.value;
-
-    let question = {};
-   
-    addTestForm.querySelectorAll('input, textarea').forEach((field) => {
-        if(field.name !== 'title') {            
-            if(field.name.startsWith('img')) {
-                question = {
-                    question: field.value,
-                    img: field.value,
-                    answers: []
-                };
-            } else if(field.name.startsWith('question')) {
-                question.question = field.value
-            }
-            uniqueSet.add(question);
-        }          
-    });
+            // question[field.name] = field.value;
+            testObject.questions.push({
+                text: 'name' + field.value,
+                curr: false
+            });
+        }
+    }
     
-    let uniqueArray = Array.from(uniqueSet);
-    resultObject.questions = uniqueArray;
-    console.log(resultObject);
+    console.log(testObject);
+    console.log(testObject.questions);
 }
+
