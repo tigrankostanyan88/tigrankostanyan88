@@ -1,0 +1,130 @@
+import { motion } from "framer-motion";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { useCart } from "@/contexts/CartContext";
+import menuSteak from "@/assets/menu-steak.jpg";
+
+const dishes = [
+  {
+    id: 1,
+    name: "Premium Wagyu Steak",
+    description: "A5 grade Japanese Wagyu, perfectly grilled to your preference",
+    price: "$89",
+    image: menuSteak,
+  },
+  {
+    id: 2,
+    name: "Signature Mixed Grill",
+    description: "Chef's selection of finest cuts, served with seasonal vegetables",
+    price: "$65",
+    image: menuSteak,
+  },
+  {
+    id: 3,
+    name: "Lamb Chops Royale",
+    description: "Tender lamb chops with rosemary and garlic butter",
+    price: "$55",
+    image: menuSteak,
+  },
+];
+
+const FeaturedDishes = () => {
+  const { addToCart, cart } = useCart();
+
+  const handleAddToCart = (
+    dish: (typeof dishes)[0],
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    addToCart(
+      {
+        id: dish.id,
+        name: dish.name,
+        description: dish.description,
+        image: dish.image,
+        price: parseFloat(dish.price.substring(1)),
+      },
+      event
+    );
+  };
+
+  return (
+    <section className="py-24 bg-gradient-to-b from-background to-card/50">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
+            <span className="text-gradient-fire">Signature Dishes</span>
+          </h2>
+          <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+            Indulge in our chef's carefully crafted selection of premium grilled delicacies
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {dishes.map((dish, index) => (
+            <motion.div
+              key={dish.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+            >
+              <Card className="overflow-hidden group cursor-pointer bg-card border-border hover:border-primary transition-smooth">
+                <div className="relative overflow-hidden aspect-square">
+                  <img
+                    src={dish.image}
+                    alt={dish.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-smooth"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent opacity-0 group-hover:opacity-100 transition-smooth" />
+                </div>
+                <div className="p-6">
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-xl font-display font-semibold">
+                      {dish.name}
+                    </h3>
+                    <span className="text-primary font-bold text-lg">
+                      {dish.price}
+                    </span>
+                  </div>
+                  <p className="text-muted-foreground mb-4">
+                    {dish.description}
+                  </p>
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    onClick={(e) => handleAddToCart(dish, e)}
+                    disabled={cart.some((item) => item.id === dish.id)}
+                  >
+                    {cart.some((item) => item.id === dish.id)
+                      ? "In Cart"
+                      : "Add to Cart"}
+                  </Button>
+                </div>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="text-center mt-12"
+        >
+          <Button variant="hero" size="lg">
+            View Full Menu
+          </Button>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default FeaturedDishes;
