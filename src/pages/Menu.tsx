@@ -477,7 +477,7 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="p_card grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 max-[500px]:grid-cols-1 gap-3">
                 {filteredItems.map((item, index) => (
                   <motion.div
                     key={item.id}

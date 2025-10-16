@@ -44,9 +44,7 @@ const Navigation = ({ onBookingOpen }: NavigationProps) => {
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-smooth ${
-        isScrolled ? "bg-card/95 backdrop-blur-lg shadow-deep" : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-smooth bg-card/95 backdrop-blur-lg shadow-deep`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center justify-between">
@@ -109,7 +107,7 @@ const Navigation = ({ onBookingOpen }: NavigationProps) => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden mt-4 pb-4"
+            className={`md:hidden mt-4 pb-4 bg-card/95 ${isScrolled ? "backdrop-blur-lg" : ""}`}
           >
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (

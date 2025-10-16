@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import FeaturedDishes from "@/components/FeaturedDishes";
 import Gallery from "@/components/Gallery";
 import Testimonials from "@/components/Testimonials";
+import Services from "@/components/Services";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
@@ -25,6 +26,7 @@ const Home = ({ onBookingOpen }: HomeProps) => {
       </div>
       <Gallery />
       <Testimonials />
+      <Services />
 
       {/* CTA Section */}
       <section className="py-24 bg-gradient-ember">
