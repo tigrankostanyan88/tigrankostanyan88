@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Menu, X, Flame, ShoppingCart } from "lucide-react";
+import { Menu, X, Flame, ShoppingCart, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 
@@ -13,7 +13,7 @@ const Navigation = ({ onBookingOpen }: NavigationProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
-  const { getCartCount } = useCart();
+  const { getCartCount, getFavoritesCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,7 +77,18 @@ const Navigation = ({ onBookingOpen }: NavigationProps) => {
                 )}
               </Link>
             ))}
-            
+            <Link to="/favorites" className="relative" id="favorite-icon">
+              <Heart
+                className={`h-6 w-6 text-foreground hover:text-primary transition-smooth ${
+                  getFavoritesCount() > 0 ? "fill-primary text-primary" : ""
+                }`}
+              />
+              {getFavoritesCount() > 0 && (
+                <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                  {getFavoritesCount()}
+                </span>
+              )}
+            </Link>
             <Link to="/cart" className="relative" id="cart-icon">
               <ShoppingCart className="h-6 w-6 text-foreground hover:text-primary transition-smooth" />
               {getCartCount() > 0 && (
@@ -124,7 +135,25 @@ const Navigation = ({ onBookingOpen }: NavigationProps) => {
                   {link.name}
                 </Link>
               ))}
-              
+              <Link
+                to="/favorites"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center justify-between py-2"
+              >
+                <div className="flex items-center gap-2">
+                  <Heart
+                    className={`h-5 w-5 ${
+                      getFavoritesCount() > 0 ? "fill-primary text-primary" : ""
+                    }`}
+                  />
+                  <span className="font-medium">Favorites</span>
+                </div>
+                {getFavoritesCount() > 0 && (
+                  <span className="bg-primary text-primary-foreground text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center">
+                    {getFavoritesCount()}
+                  </span>
+                )}
+              </Link>
               <Link to="/cart" onClick={() => setIsOpen(false)} className="flex items-center justify-between py-2">
                 <span className="font-medium">Cart</span>
                 {getCartCount() > 0 && (

@@ -10,7 +10,7 @@ import { Search, Heart, Plus, Minus } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import ProductDetailModal from "@/components/ProductDetailModal";
 import { toast } from "@/hooks/use-toast";
-import menuSteak from "@/assets/menu-steak.jpg";
+import { products, Product } from "@/data/products";
 
 const categories = [
   "All",
@@ -30,316 +30,6 @@ const categories = [
   "Combos",
 ];
 
-export const menuItems = [
-  // Breakfasts
-  {
-    id: 1,
-    name: "Classic Omelette",
-    description: "Fluffy omelette with your choice of fillings",
-    price: "$15",
-    category: "Breakfasts",
-    image: menuSteak,
-    quantity: 25,
-    in_stock: true,
-  },
-  {
-    id: 2,
-    name: "Pancakes",
-    description: "Stack of pancakes with maple syrup and berries",
-    price: "$12",
-    category: "Breakfasts",
-    image: menuSteak,
-    quantity: 30,
-    in_stock: true,
-  },
-
-  // Cold snacks
-  {
-    id: 3,
-    name: "Bruschetta",
-    description: "Toasted bread with tomatoes, garlic, and basil",
-    price: "$10",
-    category: "Cold snacks",
-    image: menuSteak,
-    quantity: 40,
-    in_stock: true,
-  },
-  {
-    id: 4,
-    name: "Hummus Platter",
-    description: "Creamy hummus with pita bread and vegetables",
-    price: "$14",
-    category: "Cold snacks",
-    image: menuSteak,
-    quantity: 35,
-    in_stock: true,
-  },
-
-  // Salads
-  {
-    id: 5,
-    name: "Caesar Salad",
-    description: "Crisp romaine with parmesan and croutons",
-    price: "$18",
-    category: "Salads",
-    image: menuSteak,
-    quantity: 20,
-    in_stock: true,
-  },
-  {
-    id: 6,
-    name: "Greek Salad",
-    description: "Tomatoes, cucumbers, onions, olives, and feta cheese",
-    price: "$16",
-    category: "Salads",
-    image: menuSteak,
-    quantity: 22,
-    in_stock: true,
-  },
-
-  // Soups
-  {
-    id: 7,
-    name: "Tomato Soup",
-    description: "Creamy tomato soup with a hint of basil",
-    price: "$10",
-    category: "Soups",
-    image: menuSteak,
-    quantity: 28,
-    in_stock: true,
-  },
-  {
-    id: 8,
-    name: "Lentil Soup",
-    description: "Hearty lentil soup with vegetables",
-    price: "$12",
-    category: "Soups",
-    image: menuSteak,
-    quantity: 26,
-    in_stock: true,
-  },
-
-  // Hot dishes
-  {
-    id: 9,
-    name: "Lasagna",
-    description: "Layers of pasta, meat sauce, and cheese",
-    price: "$25",
-    category: "Hot dishes",
-    image: menuSteak,
-    quantity: 15,
-    in_stock: true,
-  },
-  {
-    id: 10,
-    name: "Chicken Alfredo",
-    description: "Fettuccine with creamy alfredo sauce and chicken",
-    price: "$22",
-    category: "Hot dishes",
-    image: menuSteak,
-    quantity: 18,
-    in_stock: true,
-  },
-
-  // Fishy
-  {
-    id: 11,
-    name: "Grilled Salmon",
-    description: "Fresh salmon grilled to perfection",
-    price: "$30",
-    category: "Fishy",
-    image: menuSteak,
-    quantity: 12,
-    in_stock: true,
-  },
-  {
-    id: 12,
-    name: "Fish and Chips",
-    description: "Battered fish with a side of fries",
-    price: "$20",
-    category: "Fishy",
-    image: menuSteak,
-    quantity: 20,
-    in_stock: true,
-  },
-
-  // Prepared on the grill
-  {
-    id: 13,
-    name: "Grilled Vegetables",
-    description: "Assortment of seasonal vegetables grilled with herbs",
-    price: "$15",
-    category: "Prepared on the grill",
-    image: menuSteak,
-    quantity: 30,
-    in_stock: true,
-  },
-  {
-    id: 14,
-    name: "Grilled Halloumi",
-    description: "Slices of halloumi cheese grilled until golden",
-    price: "$18",
-    category: "Prepared on the grill",
-    image: menuSteak,
-    quantity: 25,
-    in_stock: true,
-  },
-
-  // Grilled
-  {
-    id: 15,
-    name: "Premium Wagyu Steak",
-    description: "A5 grade Japanese Wagyu, perfectly grilled",
-    price: "$89",
-    category: "Grilled",
-    image: menuSteak,
-    quantity: 10,
-    in_stock: true,
-  },
-  {
-    id: 16,
-    name: "T-Bone Steak",
-    description: "Premium cut with perfect marbling",
-    price: "$65",
-    category: "Grilled",
-    image: menuSteak,
-    quantity: 14,
-    in_stock: true,
-  },
-
-  // Kebabs
-  {
-    id: 17,
-    name: "Chicken Shish Kebab",
-    description: "Marinated chicken skewers with herbs",
-    price: "$35",
-    category: "Kebabs",
-    image: menuSteak,
-    quantity: 20,
-    in_stock: true,
-  },
-  {
-    id: 18,
-    name: "Lamb Kofta",
-    description: "Ground lamb with Middle Eastern spices",
-    price: "$42",
-    category: "Kebabs",
-    image: menuSteak,
-    quantity: 18,
-    in_stock: true,
-  },
-
-  // Accessories
-  {
-    id: 19,
-    name: "French Fries",
-    description: "Crispy golden fries",
-    price: "$8",
-    category: "Accessories",
-    image: menuSteak,
-    quantity: 50,
-    in_stock: true,
-  },
-  {
-    id: 20,
-    name: "Garlic Bread",
-    description: "Toasted bread with garlic butter",
-    price: "$6",
-    category: "Accessories",
-    image: menuSteak,
-    quantity: 45,
-    in_stock: true,
-  },
-
-  // Khachapuris
-  {
-    id: 21,
-    name: "Adjaruli Khachapuri",
-    description: "Traditional Georgian cheese bread with an egg",
-    price: "$20",
-    category: "Khachapuris",
-    image: menuSteak,
-    quantity: 22,
-    in_stock: true,
-  },
-  {
-    id: 22,
-    name: "Imeruli Khachapuri",
-    description: "Round cheese-filled bread",
-    price: "$18",
-    category: "Khachapuris",
-    image: menuSteak,
-    quantity: 24,
-    in_stock: true,
-  },
-
-  // Pizzas
-  {
-    id: 23,
-    name: "Margherita Pizza",
-    description: "Classic with fresh mozzarella and basil",
-    price: "$28",
-    category: "Pizzas",
-    image: menuSteak,
-    quantity: 30,
-    in_stock: true,
-  },
-  {
-    id: 24,
-    name: "Pepperoni Pizza",
-    description: "Classic pizza with pepperoni and cheese",
-    price: "$30",
-    category: "Pizzas",
-    image: menuSteak,
-    quantity: 32,
-    in_stock: true,
-  },
-
-  // Pides
-  {
-    id: 25,
-    name: "Kiymali Pide",
-    description: "Turkish flatbread with minced meat",
-    price: "$22",
-    category: "Pides",
-    image: menuSteak,
-    quantity: 28,
-    in_stock: true,
-  },
-  {
-    id: 26,
-    name: "Peynirli Pide",
-    description: "Turkish flatbread with cheese",
-    price: "$20",
-    category: "Pides",
-    image: menuSteak,
-    quantity: 26,
-    in_stock: true,
-  },
-
-  // Combos
-  {
-    id: 27,
-    name: "Family Combo",
-    description: "2 large pizzas, 1 salad, and a 2L drink",
-    price: "$60",
-    category: "Combos",
-    image: menuSteak,
-    quantity: 15,
-    in_stock: true,
-  },
-  {
-    id: 28,
-    name: "Grill Master Combo",
-    description: "Wagyu steak, T-bone steak, and a side of grilled vegetables",
-    price: "$150",
-    category: "Combos",
-    image: menuSteak,
-    quantity: 10,
-    in_stock: true,
-  },
-];
-
 interface MenuProps {
   onBookingOpen: () => void;
 }
@@ -348,11 +38,11 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("default");
-  const [selectedProduct, setSelectedProduct] = useState<typeof menuItems[0] | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<(Product & { stock: number; quantity: number }) | null>(null);
   const [quantities, setQuantities] = useState<Record<number, number>>({});
   const { addToCart, favorites, toggleFavorite, cart } = useCart();
 
-  const filteredItems = menuItems
+  const filteredItems = products
     .filter((item) =>
       selectedCategory === "All" ? true : item.category === selectedCategory
     )
@@ -361,32 +51,28 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
       item.description.toLowerCase().includes(searchQuery.toLowerCase())
     )
     .sort((a, b) => {
-      if (sortBy === "price-low") return parseFloat(a.price.replace("$", "")) - parseFloat(b.price.replace("$", ""));
-      if (sortBy === "price-high") return parseFloat(b.price.replace("$", "")) - parseFloat(a.price.replace("$", ""));
+      if (sortBy === "price-low") return a.price - b.price;
+      if (sortBy === "price-high") return b.price - a.price;
       return 0;
     });
 
   const getQuantity = (id: number) => quantities[id] || 1;
   const setQuantity = (id: number, qty: number) => {
-    const item = menuItems.find((i) => i.id === id);
+    const item = products.find((i) => i.id === id);
     if (!item) return;
-    const newQty = Math.max(1, Math.min(qty, item.quantity));
+    const newQty = Math.max(1, Math.min(qty, 10)); // Assuming a default stock of 10
     setQuantities((prev) => ({ ...prev, [id]: newQty }));
   };
 
   const handleAddToCart = (
-    item: (typeof menuItems)[0],
+    item: Product,
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     const qty = getQuantity(item.id);
     addToCart(
       {
-        id: item.id,
-        name: item.name,
-        price: parseFloat(item.price.replace("$", "")),
-        image: item.image,
-        description: item.description,
-        stock: item.quantity,
+        ...item,
+        stock: 10, // Assuming a default stock of 10
         quantity: qty,
       },
       qty,
@@ -491,7 +177,7 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
                           src={item.image}
                           alt={item.name}
                           className="w-full h-full object-cover group-hover:scale-110 transition-smooth cursor-pointer"
-                          onClick={() => setSelectedProduct(item)}
+                          onClick={() => setSelectedProduct({ ...item, stock: 10, quantity: 1 })}
                         />
                         <button
                           onClick={(e) => toggleFavorite(item.id, e)}
@@ -512,7 +198,7 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
                             {item.name}
                           </h3>
                           <span className="text-primary font-bold">
-                            {item.price}
+                            ${item.price}
                           </span>
                         </div>
                         <p className="text-muted-foreground text-sm mb-4 flex-grow h-10 overflow-hidden text-ellipsis" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
@@ -552,20 +238,17 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
                             className="flex-1"
                             onClick={(e) => handleAddToCart(item, e)}
                             disabled={
-                              cart.some((cartItem) => cartItem.id === item.id) ||
-                              !item.in_stock
+                              cart.some((cartItem) => cartItem.id === item.id)
                             }
                           >
-                            {!item.in_stock
-                              ? "Out of Stock"
-                              : cart.some((cartItem) => cartItem.id === item.id)
+                            {cart.some((cartItem) => cartItem.id === item.id)
                               ? "In Cart"
                               : "Add to Cart"}
                           </Button>
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => setSelectedProduct(item)}
+                            onClick={() => setSelectedProduct({ ...item, stock: 10, quantity: 1 })}
                           >
                             Details
                           </Button>

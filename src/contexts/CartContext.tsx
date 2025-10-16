@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useFavoriteAnimation } from "./FavoriteContext";
+import { products } from "@/data/products";
 
 interface CartItem {
   id: number;
@@ -25,6 +26,7 @@ interface CartContextType {
   toggleFavorite: (id: number, event?: React.MouseEvent<HTMLElement>) => void;
   getCartTotal: () => number;
   getCartCount: () => number;
+  getFavoritesCount: () => number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -38,7 +40,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     const savedCart = localStorage.getItem("shop_cart_v1");
     const savedFavorites = localStorage.getItem("shop_favorites_v1");
     if (savedCart) setCart(JSON.parse(savedCart));
-    if (savedFavorites) setFavorites(JSON.parse(savedFavorites));
+    if (savedFavorites) {
+      const favoriteIds = JSON.parse(savedFavorites) as number[];
+      const productIds = products.map((p) => p.id);
+      const validFavorites = favoriteIds.filter((id) => productIds.includes(id));
+      setFavorites(validFavorites);
+    }
   }, []);
 
   useEffect(() => {
@@ -158,6 +165,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const getCartCount = () =>
     cart.reduce((sum, item) => sum + item.quantity, 0);
 
+  const getFavoritesCount = () => favorites.length;
+
   return (
     <CartContext.Provider
       value={{
@@ -170,6 +179,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         toggleFavorite,
         getCartTotal,
         getCartCount,
+        getFavoritesCount,
       }}
     >
       {children}

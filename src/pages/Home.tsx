@@ -4,6 +4,8 @@ import FeaturedDishes from "@/components/FeaturedDishes";
 import Gallery from "@/components/Gallery";
 import Testimonials from "@/components/Testimonials";
 import Services from "@/components/Services";
+import Stories from "@/components/Stories";
+import MostPopular from "@/components/MostPopular";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
@@ -21,9 +23,11 @@ const Home = ({ onBookingOpen }: HomeProps) => {
   return (
     <div className="min-h-screen">
       <Hero onScrollClick={handleScrollToFeatured} onBookingOpen={onBookingOpen} />
+      <Stories />
       <div ref={featuredRef}>
         <FeaturedDishes />
       </div>
+      <MostPopular />
       <Gallery />
       <Testimonials />
       <Services />

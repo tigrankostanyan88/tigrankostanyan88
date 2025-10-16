@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,14 +12,15 @@ import { Footer } from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import ScrollRestoration from "./components/ScrollRestoration";
 import BookingModal from "./components/BookingModal";
-import Home from "./pages/Home";
-import Menu from "./pages/Menu";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import Cart from "./pages/Cart";
-import Checkout from "./pages/Checkout";
-import Favorites from "./pages/Favorites";
-import NotFound from "./pages/NotFound";
+
+const Home = lazy(() => import("./pages/Home"));
+const Menu = lazy(() => import("./pages/Menu"));
+const About = lazy(() => import("./pages/About"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Cart = lazy(() => import("./pages/Cart"));
+const Checkout = lazy(() => import("./pages/Checkout"));
+const Favorites = lazy(() => import("./pages/Favorites"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
 
@@ -45,22 +46,24 @@ const App = () => {
           <CartProvider>
           <Toaster />
           <Sonner />
-          <BrowserRouter>
+          <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
             <div className="flex flex-col min-h-screen">
               <ScrollRestoration />
               <Navigation onBookingOpen={() => setIsBookingOpen(true)} />
               <main className="flex-grow pt-20">
-                <Routes>
-                  <Route path="/" element={<Home onBookingOpen={() => setIsBookingOpen(true)} />} />
-                  <Route path="/menu" element={<Menu onBookingOpen={() => setIsBookingOpen(true)} />} />
-                  <Route path="/about" element={<About onBookingOpen={() => setIsBookingOpen(true)} />} />
-                  <Route path="/contact" element={<Contact onBookingOpen={() => setIsBookingOpen(true)} />} />
-                  <Route path="/cart" element={<Cart />} />
-                  <Route path="/checkout" element={<Checkout />} />
-                  <Route path="/favorites" element={<Favorites />} />
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Routes>
+                    <Route path="/" element={<Home onBookingOpen={() => setIsBookingOpen(true)} />} />
+                    <Route path="/menu" element={<Menu onBookingOpen={() => setIsBookingOpen(true)} />} />
+                    <Route path="/about" element={<About onBookingOpen={() => setIsBookingOpen(true)} />} />
+                    <Route path="/contact" element={<Contact onBookingOpen={() => setIsBookingOpen(true)} />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/favorites" element={<Favorites />} />
+                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </Suspense>
               </main>
               <Footer />
               <ScrollToTop />

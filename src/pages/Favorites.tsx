@@ -5,11 +5,11 @@ import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useCart } from "@/contexts/CartContext";
-import { menuItems } from "./Menu";
+import { products } from "@/data/products";
 
 const Favorites = () => {
   const { favorites, toggleFavorite, addToCart, cart } = useCart();
-  const favoriteItems = menuItems.filter((item) => favorites.includes(item.id));
+  const favoriteItems = products.filter((item) => favorites.includes(item.id));
 
   return (
     <div className="min-h-screen">
@@ -68,7 +68,7 @@ const Favorites = () => {
                         <h3 className="text-lg font-display font-semibold">
                           {item.name}
                         </h3>
-                        <span className="text-primary font-bold">{item.price}</span>
+                        <span className="text-primary font-bold">${item.price}</span>
                       </div>
                       <p className="text-muted-foreground text-sm mb-4">
                         {item.description}
@@ -80,28 +80,21 @@ const Favorites = () => {
                         onClick={(e) =>
                           addToCart(
                             {
-                              id: item.id,
-                              name: item.name,
-                              price: parseFloat(item.price.replace("$", "")),
-                              image: item.image,
-                              description: item.description,
-                              stock: item.quantity,
+                              ...item,
+                              stock: 10, // Assuming a default stock
                               quantity: 1,
                             },
                             1,
                             e
                           )
                         }
-                          disabled={
-                            cart.some((cartItem) => cartItem.id === item.id) ||
-                            !item.in_stock
-                          }
-                        >
-                          {!item.in_stock
-                            ? "Out of Stock"
-                            : cart.some((cartItem) => cartItem.id === item.id)
-                            ? "In Cart"
-                            : "Add to Cart"}
+                        disabled={cart.some(
+                          (cartItem) => cartItem.id === item.id
+                        )}
+                      >
+                        {cart.some((cartItem) => cartItem.id === item.id)
+                          ? "In Cart"
+                          : "Add to Cart"}
                         </Button>
                     </div>
                   </Card>

@@ -1,48 +1,27 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
-import menuSteak from "@/assets/menu-steak.jpg";
-
-const dishes = [
-  {
-    id: 1,
-    name: "Premium Wagyu Steak",
-    description: "A5 grade Japanese Wagyu, perfectly grilled to your preference",
-    price: "$89",
-    image: menuSteak,
-  },
-  {
-    id: 2,
-    name: "Signature Mixed Grill",
-    description: "Chef's selection of finest cuts, served with seasonal vegetables",
-    price: "$65",
-    image: menuSteak,
-  },
-  {
-    id: 3,
-    name: "Lamb Chops Royale",
-    description: "Tender lamb chops with rosemary and garlic butter",
-    price: "$55",
-    image: menuSteak,
-  },
-];
+import { products, Product } from "@/data/products";
 
 const FeaturedDishes = () => {
   const { addToCart, cart } = useCart();
+  const signatureDishes = products.filter(
+    (product) => product.category === "signature"
+  );
 
   const handleAddToCart = (
-    dish: (typeof dishes)[0],
+    dish: Product,
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     addToCart(
       {
-        id: dish.id,
-        name: dish.name,
-        description: dish.description,
-        image: dish.image,
-        price: parseFloat(dish.price.substring(1)),
+        ...dish,
+        stock: 10,
+        quantity: 1,
       },
+      1,
       event
     );
   };
@@ -66,7 +45,7 @@ const FeaturedDishes = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {dishes.map((dish, index) => (
+          {signatureDishes.map((dish, index) => (
             <motion.div
               key={dish.id}
               initial={{ opacity: 0, y: 30 }}
@@ -89,7 +68,7 @@ const FeaturedDishes = () => {
                       {dish.name}
                     </h3>
                     <span className="text-primary font-bold text-lg">
-                      {dish.price}
+                      ${dish.price}
                     </span>
                   </div>
                   <p className="text-muted-foreground mb-4">
@@ -118,9 +97,11 @@ const FeaturedDishes = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="text-center mt-12"
         >
-          <Button variant="hero" size="lg">
-            View Full Menu
-          </Button>
+          <Link to="/menu">
+            <Button variant="hero" size="lg">
+              View Full Menu
+            </Button>
+          </Link>
         </motion.div>
       </div>
     </section>

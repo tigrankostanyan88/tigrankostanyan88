@@ -5,18 +5,10 @@ import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "@/hooks/use-toast";
 
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  category: string;
-  image: string;
-  quantity: number;
-}
+import { Product } from "@/data/products";
 
 interface ProductDetailModalProps {
-  product: Product | null;
+  product: (Product & { stock: number; quantity: number }) | null;
   onClose: () => void;
 }
 
@@ -26,7 +18,7 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
 
   if (!product) return null;
 
-  const priceNum = parseFloat(product.price.replace("$", ""));
+  const priceNum = product.price;
   const isFavorite = favorites.includes(product.id);
 
   const handleAddToCart = () => {
@@ -88,7 +80,7 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
                     {product.name}
                   </h2>
                   <p className="text-primary text-2xl font-bold">
-                    {product.price}
+                    ${product.price}
                   </p>
                 </div>
                 <button
@@ -120,9 +112,8 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
                     <Button
                       variant="outline"
                       size="icon"
-                      onClick={() =>
-                        setQuantity(Math.min(quantity + 1, product.quantity))
-                      }
+                      onClick={() => setQuantity(quantity + 1)}
+                      disabled={quantity >= product.quantity}
                     >
                       <Plus className="h-4 w-4" />
                     </Button>
