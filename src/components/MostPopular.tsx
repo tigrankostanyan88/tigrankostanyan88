@@ -23,6 +23,7 @@ const MostPopular: React.FC = () => {
         ...dish,
         stock: 10, // Assuming a default stock
         quantity: 1,
+        discount: dish.discount,
       },
       1,
       event
@@ -68,6 +69,11 @@ const MostPopular: React.FC = () => {
               >
                 <div className="relative">
                   <img src={dish.image} alt={dish.name} className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" />
+                  {dish.discount > 0 && (
+                    <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full z-10">
+                      - {dish.discount}%
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-black bg-opacity-20 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
                     <Button
                       variant="secondary"
@@ -81,7 +87,18 @@ const MostPopular: React.FC = () => {
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-2">
                       <h3 className="text-2xl font-bold font-display">{dish.name}</h3>
-                      <span className="text-primary font-bold text-xl">${dish.price}</span>
+                      <div className="text-right">
+                        <>
+                          <span className="text-destructive font-bold text-xl">
+                            ${(dish.price - (dish.price * dish.discount) / 100).toFixed(2)}
+                          </span>
+                          {dish.discount > 0 && (
+                            <span className="text-muted-foreground line-through ml-2">
+                              ${dish.price.toFixed(2)}
+                            </span>
+                          )}
+                        </>
+                      </div>
                   </div>
                   <p className="text-muted-foreground mb-4">{dish.description}</p>
                   <Button

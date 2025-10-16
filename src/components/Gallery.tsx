@@ -69,6 +69,11 @@ const gradientClasses = ["bg-gradient-fire", "bg-gradient-bronze", "bg-gradient-
 const Gallery = () => {
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
+  const [visibleImages, setVisibleImages] = useState(15);
+
+  const loadMoreImages = () => {
+    setVisibleImages((prevVisibleImages) => prevVisibleImages + 5);
+  };
 
   return (
     <section className="py-24">
@@ -87,7 +92,7 @@ const Gallery = () => {
           </p>
         </motion.div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
-          {galleryImages.map((image, idx) => {
+          {galleryImages.slice(0, visibleImages).map((image, idx) => {
             const gradientClass =
               gradientClasses[idx % gradientClasses.length];
             return (
@@ -118,6 +123,18 @@ const Gallery = () => {
             );
           })}
         </div>
+        {visibleImages < galleryImages.length && (
+          <div className="text-center mt-8">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-full transition-all duration-300 ease-in-out"
+              onClick={loadMoreImages}
+            >
+              Load More
+            </motion.button>
+          </div>
+        )}
         <Lightbox
           open={open}
           close={() => setOpen(false)}

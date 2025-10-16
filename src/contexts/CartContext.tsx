@@ -6,6 +6,7 @@ interface CartItem {
   id: number;
   name: string;
   price: number;
+  discount: number;
   stock: number;
   image: string;
   description: string;
@@ -25,6 +26,7 @@ interface CartContextType {
   clearCart: () => void;
   toggleFavorite: (id: number, event?: React.MouseEvent<HTMLElement>) => void;
   getCartTotal: () => number;
+  getCartTotalWithoutDiscount: () => number;
   getCartCount: () => number;
   getFavoritesCount: () => number;
 }
@@ -160,6 +162,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getCartTotal = () =>
+    cart.reduce(
+      (sum, item) =>
+        sum + (item.price - (item.price * item.discount) / 100) * item.quantity,
+      0
+    );
+
+  const getCartTotalWithoutDiscount = () =>
     cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const getCartCount = () =>
@@ -178,6 +187,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         clearCart,
         toggleFavorite,
         getCartTotal,
+        getCartTotalWithoutDiscount,
         getCartCount,
         getFavoritesCount,
       }}

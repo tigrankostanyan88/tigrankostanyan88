@@ -4,11 +4,16 @@ import { Link } from "react-router-dom";
 import { Trash2, Plus, Minus, ShoppingBag, X } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/contexts/CartContext";
 
 const Cart = () => {
-  const { cart, removeFromCart, updateQuantity, clearCart, getCartTotal } = useCart();
+  const { cart, removeFromCart, updateQuantity, clearCart, getCartTotal, getCartTotalWithoutDiscount } = useCart();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const totalWithoutDiscount = getCartTotalWithoutDiscount();
+  const totalWithDiscount = getCartTotal();
+  const discount = totalWithoutDiscount - totalWithDiscount;
 
   if (cart.length === 0) {
     return (
@@ -59,12 +64,22 @@ const Cart = () => {
                   transition={{ delay: index * 0.1 }}
                   className="bg-card border border-border rounded-lg p-4 flex flex-col sm:flex-row gap-4"
                 >
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full sm:w-24 h-auto sm:h-24 object-cover rounded-lg cursor-pointer"
-                    onClick={() => setSelectedImage(item.image)}
-                  />
+                  <div className="relative">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full sm:w-24 h-auto sm:h-24 object-cover rounded-lg cursor-pointer"
+                      onClick={() => setSelectedImage(item.image)}
+                    />
+                    {item.discount > 0 && (
+                      <Badge
+                        variant="destructive"
+                        className="absolute top-2 right-2"
+                      >
+                        - {item.discount}%
+                      </Badge>
+                    )}
+                  </div>
                   <div className="flex-1">
                     <div className="flex justify-between">
                       <h3 className="font-display font-semibold text-lg mb-1">
@@ -103,9 +118,23 @@ const Cart = () => {
                           <Plus className="h-3 w-3" />
                         </Button>
                       </div>
-                      <span className="text-primary font-bold text-lg">
-                        ${(item.price * item.quantity).toFixed(2)}
-                      </span>
+                      <div className="text-right">
+                        <>
+                          <div>
+                            <span className="text-destructive font-bold text-lg">
+                              ${(item.price - (item.price * item.discount) / 100).toFixed(2)}
+                            </span>
+                            {item.discount > 0 && (
+                              <span className="text-muted-foreground line-through ml-2">
+                                ${item.price.toFixed(2)}
+                              </span>
+                            )}
+                          </div>
+                          <div className="text-sm text-muted-foreground">
+                            Total: ${((item.price - (item.price * item.discount) / 100) * item.quantity).toFixed(2)}
+                          </div>
+                        </>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -131,9 +160,15 @@ const Cart = () => {
               
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between text-muted-foreground">
-                  <span>Subtotal</span>
-                  <span>${getCartTotal().toFixed(2)}</span>
+                  <span>Total without discount</span>
+                  <span className="line-through">${totalWithoutDiscount.toFixed(2)}</span>
                 </div>
+                {discount > 0 && (
+                  <div className="flex justify-between text-destructive">
+                    <span>Discount</span>
+                    <span>-${discount.toFixed(2)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-muted-foreground">
                   <span>Delivery Fee</span>
                   <span>$5.00</span>
@@ -141,7 +176,7 @@ const Cart = () => {
                 <div className="border-t border-border pt-3 flex justify-between text-xl font-bold">
                   <span>Total</span>
                   <span className="text-primary">
-                    ${(getCartTotal() + 5).toFixed(2)}
+                    ${(totalWithDiscount + 5).toFixed(2)}
                   </span>
                 </div>
               </div>

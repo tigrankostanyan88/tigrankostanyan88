@@ -27,6 +27,7 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
         id: product.id,
         name: product.name,
         price: priceNum,
+        discount: product.discount,
         image: product.image,
         description: product.description,
         stock: product.quantity,

@@ -74,6 +74,7 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
         ...item,
         stock: 10, // Assuming a default stock of 10
         quantity: qty,
+        discount: item.discount,
       },
       qty,
       event
@@ -179,6 +180,11 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
                           className="w-full h-full object-cover group-hover:scale-110 transition-smooth cursor-pointer"
                           onClick={() => setSelectedProduct({ ...item, stock: 10, quantity: 1 })}
                         />
+                        {item.discount > 0 && (
+                          <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full z-10">
+                            - {item.discount}%
+                          </div>
+                        )}
                         <button
                           onClick={(e) => toggleFavorite(item.id, e)}
                           className="absolute top-3 right-3 bg-card/80 backdrop-blur-sm p-2 rounded-full hover:scale-110 transition-smooth"
@@ -197,9 +203,16 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
                           <h3 className="text-lg font-display font-semibold">
                             {item.name}
                           </h3>
-                          <span className="text-primary font-bold">
-                            ${item.price}
-                          </span>
+                          <div className="text-right">
+                            <span className="text-destructive font-bold text-lg">
+                              ${(item.price - (item.price * item.discount) / 100).toFixed(2)}
+                            </span>
+                            {item.discount > 0 && (
+                              <span className="text-muted-foreground line-through ml-2">
+                                ${item.price.toFixed(2)}
+                              </span>
+                            )}
+                          </div>
                         </div>
                         <p className="text-muted-foreground text-sm mb-4 flex-grow h-10 overflow-hidden text-ellipsis" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
                           {item.description}

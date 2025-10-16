@@ -6,6 +6,7 @@ import Testimonials from "@/components/Testimonials";
 import Services from "@/components/Services";
 import Stories from "@/components/Stories";
 import MostPopular from "@/components/MostPopular";
+import DiscountedGoods from "@/components/DiscountedGoods";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
@@ -28,6 +29,7 @@ const Home = ({ onBookingOpen }: HomeProps) => {
         <FeaturedDishes />
       </div>
       <MostPopular />
+      <DiscountedGoods />
       <Gallery />
       <Testimonials />
       <Services />

@@ -20,6 +20,7 @@ const FeaturedDishes = () => {
         ...dish,
         stock: 10,
         quantity: 1,
+        discount: dish.discount,
       },
       1,
       event
@@ -60,6 +61,11 @@ const FeaturedDishes = () => {
                     alt={dish.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-smooth"
                   />
+                  {dish.discount > 0 && (
+                    <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full z-10">
+                      - {dish.discount}%
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent opacity-0 group-hover:opacity-100 transition-smooth" />
                 </div>
                 <div className="p-6">
@@ -67,9 +73,18 @@ const FeaturedDishes = () => {
                     <h3 className="text-xl font-display font-semibold">
                       {dish.name}
                     </h3>
-                    <span className="text-primary font-bold text-lg">
-                      ${dish.price}
-                    </span>
+                    <div className="text-right">
+                      <>
+                        <span className="text-destructive font-bold text-lg">
+                          ${(dish.price - (dish.price * dish.discount) / 100).toFixed(2)}
+                        </span>
+                        {dish.discount > 0 && (
+                          <span className="text-muted-foreground line-through ml-2">
+                            ${dish.price.toFixed(2)}
+                          </span>
+                        )}
+                      </>
+                    </div>
                   </div>
                   <p className="text-muted-foreground mb-4">
                     {dish.description}

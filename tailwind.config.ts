@@ -66,6 +66,7 @@ export default {
         'fire': 'var(--glow-fire)',
         'bronze': 'var(--glow-bronze)',
         'deep': 'var(--shadow-deep)',
+        'primary': '0 0 20px hsl(var(--primary))',
       },
       keyframes: {
         "accordion-down": {
