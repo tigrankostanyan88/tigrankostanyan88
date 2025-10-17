@@ -4,24 +4,17 @@ import { motion } from "framer-motion";
 import { Menu, X, Flame, ShoppingCart, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
-
+import { useLanguage } from "../contexts/LanguageContext";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 interface NavigationProps {
   onBookingOpen: () => void;
 }
 
 const Navigation = ({ onBookingOpen }: NavigationProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const { getCartCount, getFavoritesCount } = useCart();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (isOpen) {
@@ -35,11 +28,10 @@ const Navigation = ({ onBookingOpen }: NavigationProps) => {
   }, [isOpen]);
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Menu", path: "/menu" },
-    { name: "About", path: "/about" },
-    { name: "Contact", path: "/contact" },
-    { name: "Favorites", path: "/favorites" },
+    { name: t("nav.home"), path: "/" },
+    { name: t("nav.menu"), path: "/menu" },
+    { name: t("nav.about"), path: "/about" },
+    { name: t("nav.contact"), path: "/contact" },
   ];
 
   return (
@@ -69,9 +61,10 @@ const Navigation = ({ onBookingOpen }: NavigationProps) => {
                     : "text-foreground"
                 }`}
               >
-                {link.name}
+                <span className="relative z-10">{link.name}</span>
                 {location.pathname === link.path && (
                   <motion.div
+                    layoutId="underline"
                     className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-fire"
                   />
                 )}
@@ -97,16 +90,16 @@ const Navigation = ({ onBookingOpen }: NavigationProps) => {
                 </span>
               )}
             </Link>
-
+            <LanguageSwitcher />
             <Button variant="hero" size="default" onClick={onBookingOpen}>
-              Book a Table
+              {t("nav.book_a_table")}
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-foreground hover:text-primary transition-smooth"
+            className="md:hidden text-foreground hover:text-primary transition-smooth focus:outline-none"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -118,7 +111,7 @@ const Navigation = ({ onBookingOpen }: NavigationProps) => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className={`md:hidden mt-4 pb-4 bg-card/95 ${isScrolled ? "backdrop-blur-lg" : ""}`}
+            className="md:hidden mt-4 pb-4 bg-card/95 backdrop-blur-lg"
           >
             <div className="flex flex-col gap-4">
               {navLinks.map((link) => (
@@ -146,7 +139,7 @@ const Navigation = ({ onBookingOpen }: NavigationProps) => {
                       getFavoritesCount() > 0 ? "fill-primary text-primary" : ""
                     }`}
                   />
-                  <span className="font-medium">Favorites</span>
+                  <span className="font-medium">{t("nav.favorites")}</span>
                 </div>
                 {getFavoritesCount() > 0 && (
                   <span className="bg-primary text-primary-foreground text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center">
@@ -155,7 +148,7 @@ const Navigation = ({ onBookingOpen }: NavigationProps) => {
                 )}
               </Link>
               <Link to="/cart" onClick={() => setIsOpen(false)} className="flex items-center justify-between py-2">
-                <span className="font-medium">Cart</span>
+                <span className="font-medium">{t("nav.cart")}</span>
                 {getCartCount() > 0 && (
                   <span className="bg-primary text-primary-foreground text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center">
                     {getCartCount()}
@@ -167,8 +160,9 @@ const Navigation = ({ onBookingOpen }: NavigationProps) => {
                 setIsOpen(false);
                 onBookingOpen();
               }}>
-                Book a Table
+                {t("nav.book_a_table")}
               </Button>
+              <LanguageSwitcher />
             </div>
           </motion.div>
         )}

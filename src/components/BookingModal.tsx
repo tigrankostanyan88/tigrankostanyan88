@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -12,6 +13,7 @@ interface BookingModalProps {
 }
 
 const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -29,8 +31,8 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
     localStorage.setItem("shop_reservations_v1", JSON.stringify([...reservations, newReservation]));
     
     toast({
-      title: "Reservation Confirmed!",
-      description: `Table booked for ${formData.guests} guests on ${formData.date} at ${formData.time}`,
+      title: t("booking.reservationConfirmed"),
+      description: t("booking.reservationDetails", { guests: formData.guests, date: formData.date, time: formData.time }),
     });
     
     setFormData({ name: "", email: "", phone: "", date: "", time: "", guests: "2" });
@@ -63,28 +65,28 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
               </button>
 
               <h2 className="text-2xl font-display font-bold text-gradient-fire mb-6">
-                Book a Table
+                {t("booking.bookATable")}
               </h2>
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <Label htmlFor="name" className="flex items-center gap-2">
                     <User className="h-4 w-4" />
-                    Full Name
+                    {t("booking.fullName")}
                   </Label>
                   <Input
                     id="name"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="John Doe"
+                    placeholder={t("booking.fullNamePlaceholder")}
                   />
                 </div>
 
                 <div>
                   <Label htmlFor="email" className="flex items-center gap-2">
                     <Mail className="h-4 w-4" />
-                    Email
+                    {t("booking.email")}
                   </Label>
                   <Input
                     id="email"
@@ -92,14 +94,14 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="john@example.com"
+                    placeholder={t("booking.emailPlaceholder")}
                   />
                 </div>
 
                 <div>
                   <Label htmlFor="phone" className="flex items-center gap-2">
                     <Phone className="h-4 w-4" />
-                    Phone
+                    {t("booking.phone")}
                   </Label>
                   <Input
                     id="phone"
@@ -114,7 +116,7 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
                   <div>
                     <Label htmlFor="date" className="flex items-center gap-2">
                       <Calendar className="h-4 w-4" />
-                      Date
+                      {t("booking.date")}
                     </Label>
                     <Input
                       id="date"
@@ -128,7 +130,7 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
                   <div>
                     <Label htmlFor="time" className="flex items-center gap-2">
                       <Clock className="h-4 w-4" />
-                      Time
+                      {t("booking.time")}
                     </Label>
                     <Input
                       id="time"
@@ -143,7 +145,7 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
                 <div>
                   <Label htmlFor="guests" className="flex items-center gap-2">
                     <Users className="h-4 w-4" />
-                    Number of Guests
+                    {t("booking.numberOfGuests")}
                   </Label>
                   <Input
                     id="guests"
@@ -157,7 +159,7 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
                 </div>
 
                 <Button type="submit" variant="hero" className="w-full">
-                  Confirm Reservation
+                  {t("booking.confirmReservation")}
                 </Button>
               </form>
             </div>

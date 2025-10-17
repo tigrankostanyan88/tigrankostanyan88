@@ -6,9 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useCart } from "@/contexts/CartContext";
 import { products } from "@/data/products";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Favorites = () => {
   const { favorites, toggleFavorite, addToCart, cart } = useCart();
+  const { t } = useLanguage();
   const favoriteItems = products.filter((item) => favorites.includes(item.id));
 
   return (
@@ -22,7 +24,7 @@ const Favorites = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-4"
           >
-            Your <span className="text-gradient-fire">Favorites</span>
+            {t("favorites.title")}
           </motion.h1>
         </div>
       </section>
@@ -32,12 +34,12 @@ const Favorites = () => {
           {favoriteItems.length === 0 ? (
             <div className="text-center py-20">
               <Heart className="h-24 w-24 mx-auto mb-6 text-muted-foreground" />
-              <h2 className="text-2xl sm:text-3xl font-display font-bold mb-4">No Favorites Yet</h2>
+              <h2 className="text-2xl sm:text-3xl font-display font-bold mb-4">{t("favorites.emptyTitle")}</h2>
               <p className="text-base sm:text-lg text-muted-foreground mb-8">
-                Start adding items to your favorites!
+                {t("favorites.emptySubtitle")}
               </p>
               <Link to="/menu">
-                <Button variant="hero">Browse Menu</Button>
+                <Button variant="hero">{t("favorites.browseMenu")}</Button>
               </Link>
             </div>
           ) : (
@@ -53,7 +55,7 @@ const Favorites = () => {
                     <div className="relative overflow-hidden aspect-video">
                       <img
                         src={item.image}
-                        alt={item.name}
+                        alt={t(item.name)}
                         className="w-full h-full object-cover group-hover:scale-110 transition-smooth"
                       />
                       <button
@@ -66,12 +68,12 @@ const Favorites = () => {
                     <div className="p-5">
                       <div className="flex items-start justify-between mb-2">
                         <h3 className="text-lg font-display font-semibold">
-                          {item.name}
+                          {t(item.name)}
                         </h3>
                         <span className="text-primary font-bold">${item.price}</span>
                       </div>
                       <p className="text-muted-foreground text-sm mb-4">
-                        {item.description}
+                        {t(item.description)}
                       </p>
                       <Button
                         variant="default"
@@ -81,6 +83,8 @@ const Favorites = () => {
                           addToCart(
                             {
                               ...item,
+                              name: t(item.name),
+                              description: t(item.description),
                               stock: 10, // Assuming a default stock
                               quantity: 1,
                             },
@@ -93,8 +97,8 @@ const Favorites = () => {
                         )}
                       >
                         {cart.some((cartItem) => cartItem.id === item.id)
-                          ? "In Cart"
-                          : "Add to Cart"}
+                          ? t("favorites.inCart")
+                          : t("favorites.addToCart")}
                         </Button>
                     </div>
                   </Card>

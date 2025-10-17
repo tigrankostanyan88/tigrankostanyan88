@@ -6,9 +6,11 @@ import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/contexts/CartContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, clearCart, getCartTotal, getCartTotalWithoutDiscount } = useCart();
+  const { t } = useLanguage();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const totalWithoutDiscount = getCartTotalWithoutDiscount();
@@ -22,12 +24,12 @@ const Cart = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
           <div className="text-center py-20">
             <ShoppingBag className="h-24 w-24 mx-auto mb-6 text-muted-foreground" />
-            <h2 className="text-2xl sm:text-3xl font-display font-bold mb-4">Your Cart is Empty</h2>
+            <h2 className="text-2xl sm:text-3xl font-display font-bold mb-4">{t("cart.emptyTitle")}</h2>
             <p className="text-muted-foreground mb-8">
-              Add some delicious items to get started!
+              {t("cart.emptySubtitle")}
             </p>
             <Link to="/menu">
-              <Button variant="hero">Browse Menu</Button>
+              <Button variant="hero">{t("cart.browseMenu")}</Button>
             </Link>
           </div>
         </div>
@@ -47,7 +49,7 @@ const Cart = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-4"
           >
-            Shopping <span className="text-gradient-fire">Cart</span>
+            {t("cart.shoppingCart")}
           </motion.h1>
         </div>
       </section>
@@ -83,7 +85,7 @@ const Cart = () => {
                   <div className="flex-1">
                     <div className="flex justify-between">
                       <h3 className="font-display font-semibold text-lg mb-1">
-                        {item.name}
+                        {t(item.name)}
                       </h3>
                       <button
                         onClick={() => removeFromCart(item.id)}
@@ -93,7 +95,7 @@ const Cart = () => {
                       </button>
                     </div>
                     <p className="text-muted-foreground text-sm mb-3">
-                      {item.description}
+                      {t(item.description)}
                     </p>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
@@ -131,7 +133,7 @@ const Cart = () => {
                             )}
                           </div>
                           <div className="text-sm text-muted-foreground">
-                            Total: ${((item.price - (item.price * item.discount) / 100) * item.quantity).toFixed(2)}
+                            {t("cart.total")}: ${((item.price - (item.price * item.discount) / 100) * item.quantity).toFixed(2)}
                           </div>
                         </>
                       </div>
@@ -145,7 +147,7 @@ const Cart = () => {
                 onClick={clearCart}
                 className="w-full"
               >
-                Clear Cart
+                {t("cart.clearCart")}
               </Button>
             </div>
 
@@ -155,26 +157,26 @@ const Cart = () => {
               className="bg-card border-2 border-primary/20 rounded-lg p-6 h-fit lg:sticky top-24"
             >
               <h3 className="text-2xl font-display font-bold mb-6 text-gradient-fire">
-                Order Summary
+                {t("cart.orderSummary")}
               </h3>
               
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between text-muted-foreground">
-                  <span>Total without discount</span>
+                  <span>{t("cart.totalWithoutDiscount")}</span>
                   <span className="line-through">${totalWithoutDiscount.toFixed(2)}</span>
                 </div>
                 {discount > 0 && (
                   <div className="flex justify-between text-destructive">
-                    <span>Discount</span>
+                    <span>{t("cart.discount")}</span>
                     <span>-${discount.toFixed(2)}</span>
                   </div>
                 )}
                 <div className="flex justify-between text-muted-foreground">
-                  <span>Delivery Fee</span>
+                  <span>{t("cart.deliveryFee")}</span>
                   <span>$5.00</span>
                 </div>
                 <div className="border-t border-border pt-3 flex justify-between text-xl font-bold">
-                  <span>Total</span>
+                  <span>{t("cart.total")}</span>
                   <span className="text-primary">
                     ${(totalWithDiscount + 5).toFixed(2)}
                   </span>
@@ -183,7 +185,7 @@ const Cart = () => {
 
               <Link to="/checkout">
                 <Button variant="hero" className="w-full">
-                  Proceed to Checkout
+                  {t("cart.proceedToCheckout")}
                 </Button>
               </Link>
             </motion.div>

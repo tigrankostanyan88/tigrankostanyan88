@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "products.premiumWagyuSteak.name",
+    "description": "products.premiumWagyuSteak.description",
+    "price": 89,
+    "discount": 50,
+    "image": "/images/premium-wagyu-steak.webp",
+    "category": "categories.Grilled"
+  },
+  {
+    "id": 2,
+    "name": "products.signatureMixedGrill.name",
+    "description": "products.signatureMixedGrill.description",
+    "price": 65,
+    "discount": 0,
+    "image": "/images/signature-mixed-grill.webp",
+    "category": "categories.Prepared on the grill"
+  },
+  {
+    "id": 3,
+    "name": "products.lambChopsRoyale.name",
+    "description": "products.lambChopsRoyale.description",
+    "price": 55,
+    "discount": 0,
+    "image": "/images/lamb-chops-royale.webp",
+    "category": "categories.Hot dishes"
+  },
+  {
+    "id": 4,
+    "name": "products.classicCheeseburger.name",
+    "description": "products.classicCheeseburger.description",
+    "price": 25,
+    "discount": 50,
+    "image": "/images/classic-cheeseburger.webp",
+    "category": "categories.Hot dishes"
+  },
+  {
+    "id": 5,
+    "name": "products.grilledSalmon.name",
+    "description": "products.grilledSalmon.description",
+    "price": 35,
+    "discount": 0,
+    "image": "/images/grilled-salmon.webp",
+    "category": "categories.Fishy"
+  },
+  {
+    "id": 6,
+    "name": "products.bbqRibs.name",
+    "description": "products.bbqRibs.description",
+    "price": 45,
+    "discount": 0,
+    "image": "/images/bbq-ribs.webp",
+    "category": "categories.Prepared on the grill"
+  },
+  {
+    "id": 7,
+    "name": "products.caesarSalad.name",
+    "description": "products.caesarSalad.description",
+    "price": 15,
+    "discount": 0,
+    "image": "/images/caesar-salad.jpg",
+    "category": "categories.Salads"
+  },
+  {
+    "id": 8,
+    "name": "products.mushroomSoup.name",
+    "description": "products.mushroomSoup.description",
+    "price": 12,
+    "discount": 0,
+    "image": "/images/mushroom-soup.jpg",
+    "category": "categories.Soups"
+  }
+]

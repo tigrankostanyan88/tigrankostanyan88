@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import heroImage from "@/assets/hero-bg.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface HeroProps {
   onScrollClick: () => void;
@@ -10,6 +11,7 @@ interface HeroProps {
 }
 
 const Hero = ({ onScrollClick, onBookingOpen }: HeroProps) => {
+  const { t } = useLanguage();
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -36,7 +38,7 @@ const Hero = ({ onScrollClick, onBookingOpen }: HeroProps) => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-6"
           >
-            <span className="text-gradient-fire">Grillian 2.0</span>
+            <span className="text-gradient-fire">{t("hero.title")}</span>
           </motion.h1>
 
           <motion.p
@@ -45,7 +47,7 @@ const Hero = ({ onScrollClick, onBookingOpen }: HeroProps) => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg sm:text-xl md:text-2xl lg:text-3xl mb-4 text-foreground/90 font-light"
           >
-            Where Fire Meets Perfection
+            {t("hero.subtitle")}
           </motion.p>
 
           <motion.p
@@ -54,8 +56,7 @@ const Hero = ({ onScrollClick, onBookingOpen }: HeroProps) => {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-sm sm:text-base md:text-lg mb-12 text-muted-foreground max-w-2xl mx-auto"
           >
-            Experience the art of premium grilling in an atmosphere of refined luxury.
-            Every dish is a masterpiece, crafted with passion and served with excellence.
+            {t("hero.description")}
           </motion.p>
 
           <motion.div
@@ -65,11 +66,11 @@ const Hero = ({ onScrollClick, onBookingOpen }: HeroProps) => {
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <Button variant="hero" size="lg" onClick={onBookingOpen} className="w-full sm:w-auto">
-              Book a Table
+              {t("hero.bookATable")}
             </Button>
             <Link to="/menu" className="w-full sm:w-auto">
               <Button variant="outline" size="lg" className="w-full">
-                View Menu
+                {t("hero.viewMenu")}
               </Button>
             </Link>
           </motion.div>
@@ -88,7 +89,7 @@ const Hero = ({ onScrollClick, onBookingOpen }: HeroProps) => {
             className="flex flex-col items-center gap-2 text-muted-foreground"
             onClick={onScrollClick}
           >
-            <span className="text-sm">Scroll to Explore</span>
+            <span className="text-sm">{t("hero.scroll")}</span>
             <ChevronDown className="h-6 w-6" />
           </motion.button>
         </motion.div>

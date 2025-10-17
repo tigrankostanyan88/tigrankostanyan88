@@ -3,35 +3,38 @@ import Navigation from "@/components/Navigation";
 import { Card } from "@/components/ui/card";
 import { Flame, Award, Users, Heart } from "lucide-react";
 import aboutImage from "@/assets/about-interior.jpg";
-
-const values = [
-  {
-    icon: Flame,
-    title: "Passion for Perfection",
-    description: "Every dish is crafted with meticulous attention to detail and love for the art of grilling",
-  },
-  {
-    icon: Award,
-    title: "Premium Quality",
-    description: "We source only the finest ingredients from trusted suppliers around the world",
-  },
-  {
-    icon: Users,
-    title: "Expert Team",
-    description: "Our chefs bring decades of experience from Michelin-starred kitchens",
-  },
-  {
-    icon: Heart,
-    title: "Customer First",
-    description: "Your satisfaction and experience is at the heart of everything we do",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface AboutProps {
   onBookingOpen: () => void;
 }
 
 const About = ({ onBookingOpen }: AboutProps) => {
+  const { t } = useLanguage();
+
+  const values = [
+    {
+      icon: Flame,
+      title: t("about.passionTitle"),
+      description: t("about.passionDescription"),
+    },
+    {
+      icon: Award,
+      title: t("about.qualityTitle"),
+      description: t("about.qualityDescription"),
+    },
+    {
+      icon: Users,
+      title: t("about.teamTitle"),
+      description: t("about.teamDescription"),
+    },
+    {
+      icon: Heart,
+      title: t("about.customerTitle"),
+      description: t("about.customerDescription"),
+    },
+  ];
+
   return (
     <div className="min-h-screen">
       <Navigation onBookingOpen={onBookingOpen} />
@@ -44,7 +47,7 @@ const About = ({ onBookingOpen }: AboutProps) => {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-4"
           >
-            Our <span className="text-gradient-fire">Story</span>
+            {t("about.heroTitle")}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -52,7 +55,7 @@ const About = ({ onBookingOpen }: AboutProps) => {
             transition={{ delay: 0.2 }}
             className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto"
           >
-            A journey of passion, excellence, and the pursuit of culinary perfection
+            {t("about.heroSubtitle")}
           </motion.p>
         </div>
       </section>
@@ -73,25 +76,12 @@ const About = ({ onBookingOpen }: AboutProps) => {
               className="bg-background/80 backdrop-blur-sm p-6 sm:p-8 rounded-lg shadow-lg"
             >
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6">
-                Welcome to <span className="text-gradient-fire">Grillian 2.0</span>
+                {t("about.welcome")}
               </h2>
               <div className="space-y-5 text-foreground/80">
-                <p>
-                  Founded in 2015, Grillian has been redefining the art of premium grilling
-                  and fine dining. Our journey began with a simple vision: to create an
-                  extraordinary culinary experience that combines traditional grilling
-                  techniques with modern innovation.
-                </p>
-                <p>
-                  Today, Grillian 2.0 represents the evolution of that vision. We've
-                  elevated every aspect of our restaurant—from our carefully curated menu
-                  to our stunning ambiance—to deliver an unparalleled dining experience.
-                </p>
-                <p>
-                  Our commitment to excellence extends beyond the plate. We believe in
-                  sustainable sourcing, supporting local farmers, and creating a warm,
-                  welcoming atmosphere where every guest feels like family.
-                </p>
+                <p>{t("about.p1")}</p>
+                <p>{t("about.p2")}</p>
+                <p>{t("about.p3")}</p>
               </div>
             </motion.div>
           </div>
@@ -108,10 +98,10 @@ const About = ({ onBookingOpen }: AboutProps) => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
-              Our <span className="text-gradient-fire">Values</span>
+              {t("about.valuesTitle")}
             </h2>
             <p className="text-muted-foreground text-base sm:text-lg">
-              The principles that guide us every day
+              {t("about.valuesSubtitle")}
             </p>
           </motion.div>
 
@@ -151,16 +141,13 @@ const About = ({ onBookingOpen }: AboutProps) => {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6">
-              Our <span className="text-gradient-fire">Mission</span>
+              {t("about.missionTitle")}
             </h2>
             <p className="text-lg sm:text-xl text-muted-foreground mb-6">
-              To create unforgettable dining experiences through exceptional food,
-              impeccable service, and a passion for culinary excellence.
+              {t("about.missionP1")}
             </p>
             <p className="text-base sm:text-lg text-muted-foreground/80">
-              We strive to be more than just a restaurant—we aim to be a destination
-              where memories are made, celebrations come to life, and every visit
-              leaves a lasting impression.
+              {t("about.missionP2")}
             </p>
           </motion.div>
         </div>

@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Facebook, Twitter, Instagram, Youtube } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const Footer = () => {
+  const { t } = useLanguage();
   return (
     <footer className="bg-gradient-to-b from-gray-900 to-black text-gray-300 mt-auto">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -30,7 +32,7 @@ export const Footer = () => {
               </span>
             </a>
             <p className="text-sm text-gray-400 mb-6 max-w-xs">
-              Experience the art of grilling with premium cuts and an unforgettable ambiance.
+              {t("footer.description")}
             </p>
             <div className="flex gap-4">
               <a href="#" className="text-gray-400 hover:text-primary transition-colors" aria-label="Facebook">
@@ -50,47 +52,47 @@ export const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-display text-xl font-bold mb-6 text-white">Quick Links</h3>
+            <h3 className="font-display text-xl font-bold mb-6 text-white">{t("footer.quickLinks")}</h3>
             <ul className="space-y-3 text-sm">
-              <li><Link to="/" className="text-gray-400 hover:text-primary transition-colors">Home</Link></li>
-              <li><Link to="/menu" className="text-gray-400 hover:text-primary transition-colors">Menu</Link></li>
-              <li><Link to="/about" className="text-gray-400 hover:text-primary transition-colors">About Us</Link></li>
-              <li><Link to="/contact" className="text-gray-400 hover:text-primary transition-colors">Contact</Link></li>
-              <li><Link to="/favorites" className="text-gray-400 hover:text-primary transition-colors">Favorites</Link></li>
+              <li><Link to="/" className="text-gray-400 hover:text-primary transition-colors">{t("footer.home")}</Link></li>
+              <li><Link to="/menu" className="text-gray-400 hover:text-primary transition-colors">{t("footer.menu")}</Link></li>
+              <li><Link to="/about" className="text-gray-400 hover:text-primary transition-colors">{t("footer.aboutUs")}</Link></li>
+              <li><Link to="/contact" className="text-gray-400 hover:text-primary transition-colors">{t("footer.contact")}</Link></li>
+              <li><Link to="/favorites" className="text-gray-400 hover:text-primary transition-colors">{t("footer.favorites")}</Link></li>
             </ul>
           </div>
 
           {/* Contact Info */}
           <div>
-            <h3 className="font-display text-xl font-bold mb-6 text-white">Contact Us</h3>
+            <h3 className="font-display text-xl font-bold mb-6 text-white">{t("footer.contactUs")}</h3>
             <ul className="space-y-3 text-sm text-gray-400">
               <li className="flex items-center gap-3">
-                <span className="mx-auto sm:mx-0">123 Luxury Lane, Gourmet City, 10100</span>
+                <span className="mx-auto sm:mx-0">{t("footer.address")}</span>
               </li>
               <li className="flex items-center gap-3">
-                <span className="mx-auto sm:mx-0">contact@grillian.com</span>
+                <span className="mx-auto sm:mx-0">{t("footer.email")}</span>
               </li>
               <li className="flex items-center gap-3">
-                <span className="mx-auto sm:mx-0">(555) 123-4567</span>
+                <span className="mx-auto sm:mx-0">{t("footer.phone")}</span>
               </li>
             </ul>
           </div>
 
           {/* Newsletter */}
           <div>
-            <h3 className="font-display text-xl font-bold mb-6 text-white">Join Our Newsletter</h3>
+            <h3 className="font-display text-xl font-bold mb-6 text-white">{t("footer.newsletter")}</h3>
             <p className="text-sm text-gray-400 mb-4">
-              Get exclusive offers and updates straight to your inbox.
+              {t("footer.newsletterSubtitle")}
             </p>
             <form className="flex gap-2">
-              <Input type="email" placeholder="Your Email" className="bg-gray-800 border-gray-700 text-white focus:ring-primary" />
-              <Button type="submit" variant="default">Subscribe</Button>
+              <Input type="email" placeholder={t("footer.yourEmail")} className="bg-gray-800 border-gray-700 text-white focus:ring-primary" />
+              <Button type="submit" variant="default">{t("footer.subscribe")}</Button>
             </form>
           </div>
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-500">
-          <p>&copy; {new Date().getFullYear()} Grillian 2.0. All rights reserved.</p>
+          <p>{t("footer.copyright", { year: new Date().getFullYear() })}</p>
         </div>
       </div>
     </footer>

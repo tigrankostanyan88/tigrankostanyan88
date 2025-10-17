@@ -5,35 +5,38 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-
-const contactInfo = [
-  {
-    icon: MapPin,
-    title: "Location",
-    details: "123 Premium Street, Downtown District, City 12345",
-  },
-  {
-    icon: Phone,
-    title: "Phone",
-    details: "+1 (555) 123-4567",
-  },
-  {
-    icon: Mail,
-    title: "Email",
-    details: "reservations@grillian.com",
-  },
-  {
-    icon: Clock,
-    title: "Hours",
-    details: "Mon-Sun: 11:00 AM - 11:00 PM",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface ContactProps {
   onBookingOpen: () => void;
 }
 
 const Contact = ({ onBookingOpen }: ContactProps) => {
+  const { t } = useLanguage();
+
+  const contactInfo = [
+    {
+      icon: MapPin,
+      title: t("contact.location"),
+      details: "123 Premium Street, Downtown District, City 12345",
+    },
+    {
+      icon: Phone,
+      title: t("contact.phone"),
+      details: "+1 (555) 123-4567",
+    },
+    {
+      icon: Mail,
+      title: t("contact.email"),
+      details: "reservations@grillian.com",
+    },
+    {
+      icon: Clock,
+      title: t("contact.hours"),
+      details: "Mon-Sun: 11:00 AM - 11:00 PM",
+    },
+  ];
+
   return (
     <div className="min-h-screen">
       <Navigation onBookingOpen={onBookingOpen} />
@@ -46,7 +49,8 @@ const Contact = ({ onBookingOpen }: ContactProps) => {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-4"
           >
-            Get in <span className="text-gradient-fire">Touch</span>
+            {t("contact.getIn")}{" "}
+            <span className="text-gradient-fire">{t("contact.touch")}</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -54,7 +58,7 @@ const Contact = ({ onBookingOpen }: ContactProps) => {
             transition={{ delay: 0.2 }}
             className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto"
           >
-            We'd love to hear from you. Reach out for reservations or inquiries
+            {t("contact.heroSubtitle")}
           </motion.p>
         </div>
       </section>
@@ -93,32 +97,49 @@ const Contact = ({ onBookingOpen }: ContactProps) => {
             >
               <Card className="p-6 sm:p-8 bg-card border-border">
                 <h2 className="text-2xl sm:text-3xl font-display font-bold mb-6">
-                  Send us a <span className="text-gradient-fire">Message</span>
+                  {t("contact.sendMessageTitle")}{" "}
+                  <span className="text-gradient-fire">
+                    {t("contact.message")}
+                  </span>
                 </h2>
                 <form className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium mb-2">Name</label>
-                      <Input placeholder="Your name" />
+                      <label className="block text-sm font-medium mb-2">
+                        {t("contact.name")}
+                      </label>
+                      <Input placeholder={t("contact.yourName")} />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-2">Email</label>
-                      <Input type="email" placeholder="your@email.com" />
+                      <label className="block text-sm font-medium mb-2">
+                        {t("contact.email")}
+                      </label>
+                      <Input
+                        type="email"
+                        placeholder={t("contact.yourEmail")}
+                      />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Phone</label>
-                    <Input type="tel" placeholder="+1 (555) 000-0000" />
+                    <label className="block text-sm font-medium mb-2">
+                      {t("contact.phone")}
+                    </label>
+                    <Input
+                      type="tel"
+                      placeholder="+1 (555) 000-0000"
+                    />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-2">Message</label>
+                    <label className="block text-sm font-medium mb-2">
+                      {t("contact.message")}
+                    </label>
                     <Textarea
-                      placeholder="Tell us about your inquiry or reservation..."
+                      placeholder={t("contact.messagePlaceholder")}
                       rows={5}
                     />
                   </div>
                   <Button variant="hero" size="lg" className="w-full">
-                    Send Message
+                    {t("contact.sendMessage")}
                   </Button>
                 </form>
               </Card>
@@ -156,13 +177,16 @@ const Contact = ({ onBookingOpen }: ContactProps) => {
             viewport={{ once: true }}
           >
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-bold mb-4">
-              Ready to Experience <span className="text-gradient-fire">Grillian?</span>
+              {t("contact.readyToExperience")}{" "}
+              <span className="text-gradient-fire">
+                {t("contact.grillian")}
+              </span>
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Book your table now and prepare for an unforgettable dining experience
+              {t("contact.bookingSubtitle")}
             </p>
             <Button variant="hero" size="lg" className="w-full sm:w-auto">
-              Book a Table Now
+              {t("contact.bookNow")}
             </Button>
           </motion.div>
         </div>

@@ -1,0 +1,288 @@
+{
+  "ourMenu": "Our Menu",
+  "exploreDishes": "Explore our extensive selection of premium dishes, crafted with the finest ingredients",
+  "searchDishes": "Search dishes...",
+  "sortBy": "Sort by",
+  "default": "Default",
+  "priceLowToHigh": "Price: Low to High",
+  "priceHighToLow": "Price: High to Low",
+  "selectCategory": "Select a category",
+  "noItemsFound": "No items found matching your search.",
+  "inCart": "In Cart",
+  "addToCart": "Add to Cart",
+  "details": "Details",
+  "addedToCart": "Added to cart!",
+  "quantity": "Quantity:",
+  "categories": {
+    "All": "All",
+    "Breakfasts": "Breakfasts",
+    "Cold snacks": "Cold snacks",
+    "Salads": "Salads",
+    "Soups": "Soups",
+    "Hot dishes": "Hot dishes",
+    "Fishy": "Fishy",
+    "Prepared on the grill": "Prepared on the grill",
+    "Grilled": "Grilled",
+    "Kebabs": "Kebabs",
+    "Accessories": "Accessories",
+    "Khachapuris": "Khachapuris",
+    "Pizzas": "Pizzas",
+    "Pides": "Pides",
+    "Combos": "Combos"
+  },
+  "discountedGoods": "Discounted Goods",
+  "biggestDiscounts": "Here you will find the biggest discounts!",
+  "viewDetails": "View Details",
+  "nav": {
+    "home": "Home",
+    "menu": "Menu",
+    "about": "About",
+    "contact": "Contact",
+    "favorites": "Favorites",
+    "cart": "Cart",
+    "book_a_table": "Book a Table"
+  },
+  "contact": {
+    "location": "Location",
+    "phone": "Phone",
+    "email": "Email",
+    "hours": "Hours",
+    "getIn": "Get in",
+    "touch": "Touch",
+    "heroSubtitle": "We'd love to hear from you. Reach out for reservations or inquiries",
+    "sendMessageTitle": "Send us a",
+    "message": "Message",
+    "name": "Name",
+    "yourName": "Your name",
+    "yourEmail": "your@email.com",
+    "messagePlaceholder": "Tell us about your inquiry or reservation...",
+    "sendMessage": "Send Message",
+    "readyToExperience": "Ready to Experience",
+    "grillian": "Grillian?",
+    "bookingSubtitle": "Book your table now and prepare for an unforgettable dining experience",
+    "bookNow": "Book a Table Now"
+  },
+  "checkout": {
+    "checkout": "Checkout",
+    "contactInformation": "Contact Information",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "John Doe",
+    "email": "Email",
+    "emailPlaceholder": "john@example.com",
+    "phone": "Phone",
+    "deliveryAddress": "Delivery Address",
+    "streetAddress": "Street Address",
+    "streetAddressPlaceholder": "123 Main St",
+    "city": "City",
+    "cityPlaceholder": "New York",
+    "zipCode": "ZIP Code",
+    "paymentInformation": "Payment Information",
+    "cardNumber": "Card Number",
+    "expiryDate": "Expiry Date",
+    "cvv": "CVV",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "delivery": "Delivery",
+    "total": "Total",
+    "completePayment": "Complete Payment",
+    "paymentSuccessTitle": "Payment Successful! 🎉",
+    "paymentSuccessDescription": "Your order has been confirmed. Thank you!"
+  },
+  "booking": {
+    "bookATable": "Book a Table",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "John Doe",
+    "email": "Email",
+    "emailPlaceholder": "john@example.com",
+    "phone": "Phone",
+    "date": "Date",
+    "time": "Time",
+    "numberOfGuests": "Number of Guests",
+    "confirmReservation": "Confirm Reservation",
+    "reservationConfirmed": "Reservation Confirmed!",
+    "reservationDetails": "Table booked for {{guests}} guests on {{date}} at {{time}}"
+  },
+  "product": {
+    "quantity": "Quantity",
+    "addToCart": "Add to Cart",
+    "addedToCart": "Added to cart"
+  },
+  "featuredDishes": {
+    "title": "Signature Dishes",
+    "subtitle": "Indulge in our chef's carefully crafted selection of premium grilled delicacies",
+    "inCart": "In Cart",
+    "addToCart": "Add to Cart",
+    "viewFullMenu": "View Full Menu"
+  },
+  "footer": {
+    "description": "Experience the art of grilling with premium cuts and an unforgettable ambiance.",
+    "quickLinks": "Quick Links",
+    "home": "Home",
+    "menu": "Menu",
+    "aboutUs": "About Us",
+    "contact": "Contact",
+    "favorites": "Favorites",
+    "contactUs": "Contact Us",
+    "address": "123 Luxury Lane, Gourmet City, 10100",
+    "email": "contact@grillian.com",
+    "phone": "(555) 123-4567",
+    "newsletter": "Join Our Newsletter",
+    "newsletterSubtitle": "Get exclusive offers and updates straight to your inbox.",
+    "yourEmail": "Your Email",
+    "subscribe": "Subscribe",
+    "copyright": "© {year} Grillian 2.0. All rights reserved."
+  },
+  "gallery": {
+    "title": "Our Gallery",
+    "subtitle": "A glimpse into our world",
+    "loadMore": "Load More"
+  },
+  "hero": {
+    "title": "Grillian 2.0",
+    "subtitle": "Where Fire Meets Perfection",
+    "description": "Experience the art of premium grilling in an atmosphere of refined luxury. Every dish is a masterpiece, crafted with passion and served with excellence.",
+    "bookATable": "Book a Table",
+    "viewMenu": "View Menu",
+    "scroll": "Scroll to Explore"
+  },
+  "mostPopular": {
+    "title": "Our Most Popular Dishes",
+    "subtitle": "Discover the dishes that our customers love the most.",
+    "viewDetails": "View Details",
+    "inCart": "In Cart",
+    "addToCart": "Add to Cart"
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "At Grillian, we are dedicated to providing an exceptional dining experience with a focus on quality, ambiance, and service.",
+    "exquisiteCuisine": "Exquisite Cuisine",
+    "exquisiteCuisineDescription": "Our menu features a curated selection of the finest grilled dishes, prepared with locally-sourced ingredients and a passion for flavor.",
+    "elegantAmbiance": "Elegant Ambiance",
+    "elegantAmbianceDescription": "Dine in a sophisticated and comfortable atmosphere, perfect for romantic dinners, family gatherings, or corporate events.",
+    "premiumBar": "Premium Bar",
+    "premiumBarDescription": "Complement your meal with our extensive selection of fine wines, craft cocktails, and premium spirits from around the world.",
+    "privateDining": "Private Dining",
+    "privateDiningDescription": "Host your special occasions in our exclusive private dining rooms, with personalized menus and dedicated service.",
+    "cateringServices": "Catering Services",
+    "cateringServicesDescription": "Bring the Grillian experience to your event with our bespoke catering services, tailored to meet your needs."
+  },
+  "stories": {
+    "title": "Story {{number}}",
+    "now": "Now"
+  },
+  "testimonials": {
+    "title": "What Our Guests Say",
+    "subtitle": "Honest reviews from our valued customers.",
+    "basedOn": "Based on {{count}} reviews",
+    "reviews": [
+      {
+        "name": "John Doe",
+        "review": "The best steak I've ever had! The ambiance is perfect for a special occasion. Highly recommended."
+      },
+      {
+        "name": "Jane Smith",
+        "review": "Great food and excellent service. The staff was very attentive and friendly. Will definitely be back."
+      },
+      {
+        "name": "Peter Jones",
+        "review": "A true gem! The flavors were incredible, and the presentation was beautiful. A must-visit for any food lover."
+      },
+      {
+        "name": "Mary Williams",
+        "review": "Lovely atmosphere and delicious cocktails. The dessert menu is to die for. A perfect spot for a date night."
+      }
+    ]
+  },
+  "about": {
+    "heroTitle": "Our Story",
+    "heroSubtitle": "A journey of passion, excellence, and the pursuit of culinary perfection",
+    "welcome": "Welcome to Grillian 2.0",
+    "p1": "Founded in 2015, Grillian has been redefining the art of premium grilling and fine dining. Our journey began with a simple vision: to create an extraordinary culinary experience that combines traditional grilling techniques with modern innovation.",
+    "p2": "Today, Grillian 2.0 represents the evolution of that vision. We've elevated every aspect of our restaurant—from our carefully curated menu to our stunning ambiance—to deliver an unparalleled dining experience.",
+    "p3": "Our commitment to excellence extends beyond the plate. We believe in sustainable sourcing, supporting local farmers, and creating a warm, welcoming atmosphere where every guest feels like family.",
+    "valuesTitle": "Our Values",
+    "valuesSubtitle": "The principles that guide us every day",
+    "passionTitle": "Passion for Perfection",
+    "passionDescription": "Every dish is crafted with meticulous attention to detail and love for the art of grilling",
+    "qualityTitle": "Premium Quality",
+    "qualityDescription": "We source only the finest ingredients from trusted suppliers around the world",
+    "teamTitle": "Expert Team",
+    "teamDescription": "Our chefs bring decades of experience from Michelin-starred kitchens",
+    "customerTitle": "Customer First",
+    "customerDescription": "Your satisfaction and experience is at the heart of everything we do",
+    "missionTitle": "Our Mission",
+    "missionP1": "To create unforgettable dining experiences through exceptional food, impeccable service, and a passion for culinary excellence.",
+    "missionP2": "We strive to be more than just a restaurant—we aim to be a destination where memories are made, celebrations come to life, and every visit leaves a lasting impression."
+  },
+  "cart": {
+    "emptyTitle": "Your Cart is Empty",
+    "emptySubtitle": "Add some delicious items to get started!",
+    "browseMenu": "Browse Menu",
+    "shoppingCart": "Shopping Cart",
+    "total": "Total",
+    "clearCart": "Clear Cart",
+    "orderSummary": "Order Summary",
+    "totalWithoutDiscount": "Total without discount",
+    "discount": "Discount",
+    "deliveryFee": "Delivery Fee",
+    "proceedToCheckout": "Proceed to Checkout"
+  },
+  "favorites": {
+    "title": "Your Favorites",
+    "emptyTitle": "No Favorites Yet",
+    "emptySubtitle": "Start adding items to your favorites!",
+    "browseMenu": "Browse Menu",
+    "inCart": "In Cart",
+    "addToCart": "Add to Cart"
+  },
+  "menu": {
+    "title": "Our Menu",
+    "subtitle": "Explore our delicious dishes",
+    "search": "Search dishes...",
+    "sortBy": "Sort by",
+    "default": "Default",
+    "priceLow": "Price: Low to High",
+    "priceHigh": "Price: High to Low",
+    "selectCategory": "Select Category",
+    "noItems": "No items found."
+  },
+  "notFound": {
+    "title": "404",
+    "subtitle": "Oops! Page not found",
+    "home": "Return to Home"
+  },
+  "products": {
+    "premiumWagyuSteak": {
+      "name": "Premium Wagyu Steak",
+      "description": "A5 grade Japanese Wagyu, perfectly grilled to your preference"
+    },
+    "signatureMixedGrill": {
+      "name": "Signature Mixed Grill",
+      "description": "Chef's selection of finest cuts, served with seasonal vegetables"
+    },
+    "lambChopsRoyale": {
+      "name": "Lamb Chops Royale",
+      "description": "Tender lamb chops with rosemary and garlic butter"
+    },
+    "classicCheeseburger": {
+      "name": "Classic Cheeseburger",
+      "description": "Juicy beef patty with cheddar cheese, lettuce, and tomato"
+    },
+    "grilledSalmon": {
+      "name": "Grilled Salmon",
+      "description": "Fresh salmon fillet with a lemon-dill sauce"
+    },
+    "bbqRibs": {
+      "name": "BBQ Ribs",
+      "description": "Slow-cooked pork ribs with a smoky BBQ sauce"
+    },
+    "caesarSalad": {
+      "name": "Caesar Salad",
+      "description": "Crisp romaine lettuce with Caesar dressing, croutons, and parmesan cheese."
+    },
+    "mushroomSoup": {
+      "name": "Mushroom Soup",
+      "description": "Creamy soup with a mix of wild mushrooms."
+    }
+  }
+}

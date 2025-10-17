@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const galleryImages = [
   {
@@ -67,6 +68,7 @@ const galleryImages = [
 const gradientClasses = ["bg-gradient-fire", "bg-gradient-bronze", "bg-gradient-ember"];
 
 const Gallery = () => {
+  const { t } = useLanguage();
   const [open, setOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [visibleImages, setVisibleImages] = useState(15);
@@ -85,10 +87,10 @@ const Gallery = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
-            Our <span className="text-gradient-fire">Gallery</span>
+            {t("gallery.title")}
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground">
-            A glimpse into our world
+            {t("gallery.subtitle")}
           </p>
         </motion.div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
@@ -131,7 +133,7 @@ const Gallery = () => {
               className="bg-gradient-to-r from-primary to-secondary text-white font-bold py-3 px-8 rounded-full transition-all duration-300 ease-in-out"
               onClick={loadMoreImages}
             >
-              Load More
+              {t("gallery.loadMore")}
             </motion.button>
           </div>
         )}

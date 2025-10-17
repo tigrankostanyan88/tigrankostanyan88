@@ -9,54 +9,45 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Star } from "lucide-react";
 import { type CarouselApi } from "@/components/ui/carousel";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const testimonials = [
+const testimonialsData = [
   {
-    name: "John Doe",
     avatar: "https://randomuser.me/api/portraits/men/32.jpg",
     rating: 5,
-    review:
-      "The best steak I've ever had! The ambiance is perfect for a special occasion. Highly recommended.",
   },
   {
-    name: "Jane Smith",
     avatar: "https://randomuser.me/api/portraits/women/44.jpg",
     rating: 4,
-    review:
-      "Great food and excellent service. The staff was very attentive and friendly. Will definitely be back.",
   },
   {
-    name: "Peter Jones",
     avatar: "https://randomuser.me/api/portraits/men/62.jpg",
     rating: 5,
-    review:
-      "A true gem! The flavors were incredible, and the presentation was beautiful. A must-visit for any food lover.",
   },
   {
-    name: "Mary Williams",
     avatar: "https://randomuser.me/api/portraits/women/76.jpg",
     rating: 4,
-    review:
-      "Lovely atmosphere and delicious cocktails. The dessert menu is to die for. A perfect spot for a date night.",
   },
 ];
 
 const Testimonials = () => {
-  const totalRating = testimonials.reduce(
+  const { t } = useLanguage();
+  const testimonials = t("testimonials.reviews", { returnObjects: true }) as { name: string; review: string }[] || [];
+  const totalRating = testimonialsData.reduce(
     (acc, testimonial) => acc + testimonial.rating,
     0
   );
-  const averageRating = (totalRating / testimonials.length).toFixed(1);
+  const averageRating = (totalRating / testimonialsData.length).toFixed(1);
 
   return (
     <section className="py-20 bg-gradient-to-b from-background to-card">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4 tracking-tight">
-            What Our <span className="text-gradient-fire">Guests Say</span>
+            {t("testimonials.title")}
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Honest reviews from our valued customers.
+            {t("testimonials.subtitle")}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center mt-6 gap-2 sm:gap-4">
             <div className="flex items-center">
@@ -75,7 +66,7 @@ const Testimonials = () => {
               </div>
             </div>
             <span className="text-sm sm:text-base text-muted-foreground">
-              Based on {testimonials.length} reviews
+              {t("testimonials.basedOn", { count: testimonials.length })}
             </span>
           </div>
         </div>
@@ -97,7 +88,7 @@ const Testimonials = () => {
                     <CardContent className="p-6 sm:p-8 flex flex-col items-center text-center flex-grow">
                       <Avatar className="w-20 h-20 sm:w-24 sm:h-24 mb-6 border-4 border-primary/50">
                         <AvatarImage
-                          src={testimonial.avatar}
+                          src={testimonialsData[index].avatar}
                           alt={testimonial.name}
                         />
                         <AvatarFallback className="text-2xl sm:text-3xl">
@@ -112,7 +103,7 @@ const Testimonials = () => {
                           <Star
                             key={i}
                             className={`h-5 w-5 ${
-                              i < testimonial.rating
+                              i < testimonialsData[index].rating
                                 ? "text-primary fill-primary"
                                 : "text-muted-foreground/30"
                             }`}

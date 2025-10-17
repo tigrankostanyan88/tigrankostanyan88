@@ -8,10 +8,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Checkout = () => {
   const navigate = useNavigate();
   const { cart, getCartTotal, clearCart } = useCart();
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -30,8 +32,8 @@ const Checkout = () => {
     // Simulate payment processing
     setTimeout(() => {
       toast({
-        title: "Payment Successful! 🎉",
-        description: "Your order has been confirmed. Thank you!",
+        title: t("checkout.paymentSuccessTitle"),
+        description: t("checkout.paymentSuccessDescription"),
       });
       clearCart();
       navigate("/");
@@ -54,7 +56,7 @@ const Checkout = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-4"
           >
-            <span className="text-gradient-fire">Checkout</span>
+            <span className="text-gradient-fire">{t("checkout.checkout")}</span>
           </motion.h1>
         </div>
       </section>
@@ -69,32 +71,32 @@ const Checkout = () => {
             >
               <h2 className="text-2xl font-display font-bold mb-6 flex items-center gap-2">
                 <User className="h-6 w-6 text-primary" />
-                Contact Information
+                {t("checkout.contactInformation")}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="name">Full Name</Label>
+                  <Label htmlFor="name">{t("checkout.fullName")}</Label>
                   <Input
                     id="name"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="John Doe"
+                    placeholder={t("checkout.fullNamePlaceholder")}
                   />
                 </div>
                 <div>
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">{t("checkout.email")}</Label>
                   <Input
                     id="email"
                     type="email"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="john@example.com"
+                    placeholder={t("checkout.emailPlaceholder")}
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <Label htmlFor="phone">Phone</Label>
+                  <Label htmlFor="phone">{t("checkout.phone")}</Label>
                   <Input
                     id="phone"
                     required
@@ -114,32 +116,32 @@ const Checkout = () => {
             >
               <h2 className="text-2xl font-display font-bold mb-6 flex items-center gap-2">
                 <MapPin className="h-6 w-6 text-primary" />
-                Delivery Address
+                {t("checkout.deliveryAddress")}
               </h2>
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="address">Street Address</Label>
+                  <Label htmlFor="address">{t("checkout.streetAddress")}</Label>
                   <Input
                     id="address"
                     required
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    placeholder="123 Main St"
+                    placeholder={t("checkout.streetAddressPlaceholder")}
                   />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="city">City</Label>
+                    <Label htmlFor="city">{t("checkout.city")}</Label>
                     <Input
                       id="city"
                       required
                       value={formData.city}
                       onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                      placeholder="New York"
+                      placeholder={t("checkout.cityPlaceholder")}
                     />
                   </div>
                   <div>
-                    <Label htmlFor="zip">ZIP Code</Label>
+                    <Label htmlFor="zip">{t("checkout.zipCode")}</Label>
                     <Input
                       id="zip"
                       required
@@ -160,11 +162,11 @@ const Checkout = () => {
             >
               <h2 className="text-2xl font-display font-bold mb-6 flex items-center gap-2">
                 <CreditCard className="h-6 w-6 text-primary" />
-                Payment Information
+                {t("checkout.paymentInformation")}
               </h2>
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="cardNumber">Card Number</Label>
+                  <Label htmlFor="cardNumber">{t("checkout.cardNumber")}</Label>
                   <Input
                     id="cardNumber"
                     required
@@ -176,7 +178,7 @@ const Checkout = () => {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="expiry">Expiry Date</Label>
+                    <Label htmlFor="expiry">{t("checkout.expiryDate")}</Label>
                     <Input
                       id="expiry"
                       required
@@ -187,7 +189,7 @@ const Checkout = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="cvv">CVV</Label>
+                    <Label htmlFor="cvv">{t("checkout.cvv")}</Label>
                     <Input
                       id="cvv"
                       required
@@ -207,7 +209,7 @@ const Checkout = () => {
               transition={{ delay: 0.3 }}
               className="bg-card border-2 border-primary/20 rounded-lg p-6"
             >
-              <h3 className="text-xl font-display font-bold mb-4">Order Summary</h3>
+              <h3 className="text-xl font-display font-bold mb-4">{t("checkout.orderSummary")}</h3>
               <div className="space-y-2 mb-4">
                 {cart.map((item) => (
                   <div key={item.id} className="flex justify-between text-sm">
@@ -220,15 +222,15 @@ const Checkout = () => {
               </div>
               <div className="border-t border-border pt-4 space-y-2">
                 <div className="flex justify-between">
-                  <span>Subtotal</span>
+                  <span>{t("checkout.subtotal")}</span>
                   <span>${getCartTotal().toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Delivery</span>
+                  <span>{t("checkout.delivery")}</span>
                   <span>$5.00</span>
                 </div>
                 <div className="flex justify-between text-xl font-bold">
-                  <span>Total</span>
+                  <span>{t("checkout.total")}</span>
                   <span className="text-primary">
                     ${(getCartTotal() + 5).toFixed(2)}
                   </span>
@@ -237,7 +239,7 @@ const Checkout = () => {
             </motion.div>
 
             <Button type="submit" variant="hero" className="w-full" size="lg">
-              Complete Payment
+              {t("checkout.completePayment")}
             </Button>
           </form>
         </div>

@@ -4,8 +4,8 @@ import { X, Heart, Minus, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "@/hooks/use-toast";
-
 import { Product } from "@/data/products";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface ProductDetailModalProps {
   product: (Product & { stock: number; quantity: number }) | null;
@@ -15,6 +15,7 @@ interface ProductDetailModalProps {
 const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
   const [quantity, setQuantity] = useState(1);
   const { addToCart, favorites, toggleFavorite } = useCart();
+  const { t, language } = useLanguage();
 
   if (!product) return null;
 
@@ -25,19 +26,19 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
     addToCart(
       {
         id: product.id,
-        name: product.name,
+        name: t(product.name),
         price: priceNum,
         discount: product.discount,
         image: product.image,
-        description: product.description,
+        description: t(product.description),
         stock: product.quantity,
         quantity: quantity,
       },
       quantity
     );
     toast({
-      title: "Added to cart!",
-      description: `${quantity}x ${product.name}`,
+      title: t("product.addedToCart"),
+      description: `${quantity}x ${t(product.name)}`,
     });
     setQuantity(1);
   };
@@ -69,7 +70,7 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
             <div className="relative aspect-square overflow-hidden group">
               <img
                 src={product.image}
-                alt={product.name}
+                alt={t(product.name)}
                 className="w-full h-full object-cover group-hover:scale-110 transition-smooth duration-500"
               />
             </div>
@@ -78,7 +79,7 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h2 className="text-2xl font-display font-bold mb-2">
-                    {product.name}
+                    {t(product.name)}
                   </h2>
                   <p className="text-primary text-2xl font-bold">
                     ${product.price}
@@ -96,11 +97,11 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
                 </button>
               </div>
 
-              <p className="text-muted-foreground mb-6">{product.description}</p>
+              <p className="text-muted-foreground mb-6">{t(product.description)}</p>
 
               <div className="mt-auto space-y-4">
                 <div className="flex items-center gap-4">
-                  <span className="text-sm font-medium">Quantity:</span>
+                  <span className="text-sm font-medium">{t("product.quantity")}</span>
                   <div className="flex items-center gap-2">
                     <Button
                       variant="outline"
@@ -126,7 +127,7 @@ const ProductDetailModal = ({ product, onClose }: ProductDetailModalProps) => {
                   className="w-full"
                   onClick={handleAddToCart}
                 >
-                  Add to Cart - ${(priceNum * quantity).toFixed(2)}
+                  {t("product.addToCart")} - ${(priceNum * quantity).toFixed(2)}
                 </Button>
               </div>
             </div>

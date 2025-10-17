@@ -5,13 +5,13 @@ import { useCart } from '@/contexts/CartContext';
 import { Eye, ShoppingCart } from 'lucide-react';
 import ProductDetailModal from './ProductDetailModal';
 import { products, Product } from '@/data/products';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const MostPopular: React.FC = () => {
   const { addToCart, cart } = useCart();
+  const { t } = useLanguage();
   const [selectedProduct, setSelectedProduct] = useState<Product & { stock: number; quantity: number } | null>(null);
-  const popularDishes = products.filter(
-    (product) => product.category === "popular"
-  );
+  const popularDishes = products.filter((product) => product.isPopular);
 
   const handleAddToCart = (
     dish: Product,
@@ -20,7 +20,11 @@ const MostPopular: React.FC = () => {
     event.stopPropagation();
     addToCart(
       {
-        ...dish,
+        id: dish.id,
+        name: t(dish.name),
+        price: dish.price,
+        image: dish.image,
+        description: t(dish.description),
         stock: 10, // Assuming a default stock
         quantity: 1,
         discount: dish.discount,
@@ -50,10 +54,10 @@ const MostPopular: React.FC = () => {
             className="text-center mb-12"
           >
             <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-              Our Most <span className="text-gradient-fire">Popular</span> Dishes
+              {t("mostPopular.title")}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Discover the dishes that our customers love the most.
+              {t("mostPopular.subtitle")}
             </p>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -68,7 +72,7 @@ const MostPopular: React.FC = () => {
                 onClick={(e) => handleViewDetails(dish, e)}
               >
                 <div className="relative">
-                  <img src={dish.image} alt={dish.name} className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" />
+                  <img src={dish.image} alt={t(dish.name)} className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" />
                   {dish.discount > 0 && (
                     <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full z-10">
                       - {dish.discount}%
@@ -80,13 +84,13 @@ const MostPopular: React.FC = () => {
                       className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                       onClick={(e) => handleViewDetails(dish, e)}
                     >
-                      <Eye className="mr-2 h-4 w-4" /> View Details
+                      <Eye className="mr-2 h-4 w-4" /> {t("mostPopular.viewDetails")}
                     </Button>
                   </div>
                 </div>
                 <div className="p-6">
                   <div className="flex justify-between items-start mb-2">
-                      <h3 className="text-2xl font-bold font-display">{dish.name}</h3>
+                      <h3 className="text-2xl font-bold font-display">{t(dish.name)}</h3>
                       <div className="text-right">
                         <>
                           <span className="text-destructive font-bold text-xl">
@@ -100,7 +104,7 @@ const MostPopular: React.FC = () => {
                         </>
                       </div>
                   </div>
-                  <p className="text-muted-foreground mb-4">{dish.description}</p>
+                  <p className="text-muted-foreground mb-4">{t(dish.description)}</p>
                   <Button
                     variant="outline"
                     className="w-full"
@@ -108,10 +112,10 @@ const MostPopular: React.FC = () => {
                     disabled={cart.some((item) => item.id === dish.id)}
                   >
                     {cart.some((item) => item.id === dish.id) ? (
-                      "In Cart"
+                      t("mostPopular.inCart")
                     ) : (
                       <>
-                        <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
+                        <ShoppingCart className="mr-2 h-4 w-4" /> {t("mostPopular.addToCart")}
                       </>
                     )}
                   </Button>

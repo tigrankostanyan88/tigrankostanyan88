@@ -11,32 +11,27 @@ const services = [
   {
     icon: <CookingPot size={48} className="text-primary" />,
     title: "Exquisite Cuisine",
-    description:
-      "Our menu features a curated selection of the finest grilled dishes, prepared with locally-sourced ingredients and a passion for flavor.",
+    description: "Our menu features a curated selection of the finest grilled dishes, prepared with locally-sourced ingredients and a passion for flavor.",
   },
   {
     icon: <Utensils size={48} className="text-primary" />,
     title: "Elegant Ambiance",
-    description:
-      "Dine in a sophisticated and comfortable atmosphere, perfect for romantic dinners, family gatherings, or corporate events.",
+    description: "Dine in a sophisticated and comfortable atmosphere, perfect for romantic dinners, family gatherings, or corporate events.",
   },
   {
     icon: <GlassWater size={48} className="text-primary" />,
     title: "Premium Bar",
-    description:
-      "Complement your meal with our extensive selection of fine wines, craft cocktails, and premium spirits from around the world.",
+    description: "Complement your meal with our extensive selection of fine wines, craft cocktails, and premium spirits from around the world.",
   },
   {
     icon: <Users size={48} className="text-primary" />,
     title: "Private Dining",
-    description:
-      "Host your special occasions in our exclusive private dining rooms, with personalized menus and dedicated service.",
+    description: "Host your special occasions in our exclusive private dining rooms, with personalized menus and dedicated service.",
   },
   {
     icon: <PartyPopper size={48} className="text-primary" />,
     title: "Catering Services",
-    description:
-      "Bring the Grillian experience to your event with our bespoke catering services, tailored to meet your needs.",
+    description: "Bring the Grillian experience to your event with our bespoke catering services, tailored to meet your needs.",
   },
 ];
 

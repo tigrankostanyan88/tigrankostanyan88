@@ -4,7 +4,7 @@ import FeaturedDishes from "@/components/FeaturedDishes";
 import Gallery from "@/components/Gallery";
 import Testimonials from "@/components/Testimonials";
 import Services from "@/components/Services";
-import Stories from "@/components/Stories";
+import { StoriesSection as Stories } from "@/components/Stories";
 import MostPopular from "@/components/MostPopular";
 import DiscountedGoods from "@/components/DiscountedGoods";
 import { motion } from "framer-motion";
@@ -43,11 +43,10 @@ const Home = ({ onBookingOpen }: HomeProps) => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6">
-              Reserve Your <span className="text-gradient-fire">Table Today</span>
+              Reserve Your Table Today
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Experience the finest in premium grilling and exceptional service.
-              Book your table now for an unforgettable evening.
+              Experience the finest in premium grilling and exceptional service. Book your table now for an unforgettable evening.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="hero" size="lg" onClick={onBookingOpen} className="w-full sm:w-auto">

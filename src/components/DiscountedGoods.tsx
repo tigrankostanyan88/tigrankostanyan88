@@ -1,17 +1,20 @@
 import { useState } from "react";
-import { products, Product } from "@/data/products";
+import { Product } from "@/data/products";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { useCart } from "@/contexts/CartContext";
 import { Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import ProductDetailModal from "./ProductDetailModal";
-
-const discountedProducts: Product[] = products.filter((product) => product.discount === 50);
+import { useLanguage } from "../contexts/LanguageContext";
+import { useProducts } from "@/contexts/ProductContext";
 
 const DiscountedGoods = () => {
+  const { products } = useProducts();
+  const discountedProducts: Product[] = products.filter((product) => product.discount === 50);
   const { addToCart, toggleFavorite, favorites } = useCart();
   const [selectedProduct, setSelectedProduct] = useState<(Product & { stock: number; quantity: number }) | null>(null);
+  const { t, language } = useLanguage();
 
   const handleViewDetails = (product: Product) => {
     setSelectedProduct({
@@ -30,9 +33,9 @@ const DiscountedGoods = () => {
     <>
       <section className="py-12">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-2">Discounted Goods</h2>
+          <h2 className="text-3xl font-bold text-center mb-2">{t("discountedGoods")}</h2>
           <p className="text-center text-muted-foreground mb-8">
-            Here you will find the biggest discounts!
+            {t("biggestDiscounts")}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {discountedProducts.map((product) => (
@@ -48,12 +51,12 @@ const DiscountedGoods = () => {
                     </div>
                   )}
                   <CardHeader className="p-0 relative">
-                    <img src={product.image} alt={product.name} className="w-full h-48 object-cover" />
+                    <img src={product.image} alt={t(product.name)} className="w-full h-48 object-cover" />
                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <Button
                         onClick={() => handleViewDetails(product)}
                       >
-                        View Details
+                        {t("viewDetails")}
                       </Button>
                     </div>
                     <button
@@ -68,7 +71,7 @@ const DiscountedGoods = () => {
                     </button>
                   </CardHeader>
                   <CardContent className="p-4">
-                    <CardTitle className="text-lg font-semibold mb-2">{product.name}</CardTitle>
+                    <CardTitle className="text-lg font-semibold mb-2">{t(product.name)}</CardTitle>
                     <div className="flex items-center justify-between">
                       <p className="text-gray-500 line-through">${product.price.toFixed(2)}</p>
                       <p className="text-primary font-bold text-xl">
@@ -83,11 +86,11 @@ const DiscountedGoods = () => {
                         addToCart(
                           {
                             id: product.id,
-                            name: product.name,
+                            name: t(product.name),
                             price: product.price,
                             discount: product.discount,
                             image: product.image,
-                            description: product.description,
+                            description: t(product.description),
                             stock: 10, // Assuming a default stock
                             quantity: 1,
                           },
@@ -96,7 +99,7 @@ const DiscountedGoods = () => {
                         )
                       }
                     >
-                      Add to Cart
+                      {t("addToCart")}
                     </Button>
                   </CardFooter>
                 </Card>

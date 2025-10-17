@@ -1,84 +1,169 @@
 export interface Product {
   id: number;
-  name: string;
-  description: string;
+  name: { [key: string]: string };
+  description: { [key: string]: string };
   price: number;
   discount: number;
   image: string;
-  category: string;
+  category: { [key: string]: string };
+  isPopular?: boolean;
 }
 
-export const products: Product[] = [
+export const products = [
   {
     id: 1,
-    name: "Premium Wagyu Steak",
-    description: "A5 grade Japanese Wagyu, perfectly grilled to your preference",
+    name: {
+      hy: "Պրեմիում Վագյու Սթեյք",
+      ru: "Премиум Вагю Стейк",
+      en: "Premium Wagyu Steak"
+    },
+    description: {
+      hy: "Համեղ վագյու սթեյք՝ կրծքային հարմարավետությամբ",
+      ru: "Вкусный вагю стейк с идеальной прожаркой",
+      en: "Delicious Wagyu steak with perfect tenderness"
+    },
     price: 89,
     discount: 50,
     image: "/images/premium-wagyu-steak.webp",
-    category: "Grilled",
+    category: { hy: "Ամառային", ru: "Гриль", en: "Grilled" },
+    isPopular: true
   },
   {
     id: 2,
-    name: "Signature Mixed Grill",
-    description: "Chef's selection of finest cuts, served with seasonal vegetables",
+    name: {
+      hy: "Սիգնատուր Միքս Գրիլ",
+      ru: "Сигнатур Микс Гриль",
+      en: "Signature Mixed Grill"
+    },
+    description: {
+      hy: "Բազմազան միս՝ հատուկ մարինադով",
+      ru: "Разнообразное мясо с фирменным маринадом",
+      en: "Variety of meats with special marinade"
+    },
     price: 65,
     discount: 0,
     image: "/images/signature-mixed-grill.webp",
-    category: "Prepared on the grill",
+    category: { hy: "Մարինացված Գրիլ", ru: "Приготовлено на гриле", en: "Prepared on the grill" },
+    isPopular: true
   },
   {
     id: 3,
-    name: "Lamb Chops Royale",
-    description: "Tender lamb chops with rosemary and garlic butter",
+    name: {
+      hy: "Խոզի Գառի Խաշած Հատիկներ",
+      ru: "Бараньи отбивные Royale",
+      en: "Lamb Chops Royale"
+    },
+    description: {
+      hy: "Անպարտելի բարձիկներ՝ հոտավետ սոուսով",
+      ru: "Нежные отбивные с ароматным соусом",
+      en: "Tender chops with flavorful sauce"
+    },
     price: 55,
     discount: 0,
     image: "/images/lamb-chops-royale.webp",
-    category: "Hot dishes",
+    category: { hy: "Ժմռոտ ճաշատեսակներ", ru: "Горячие блюда", en: "Hot dishes" }
   },
   {
     id: 4,
-    name: "Classic Cheeseburger",
-    description: "Juicy beef patty with cheddar cheese, lettuce, and tomato",
+    name: {
+      hy: "Կլասիկ Չիզբուրգեր",
+      ru: "Классический Чизбургер",
+      en: "Classic Cheeseburger"
+    },
+    description: {
+      hy: "Համեղ բուրգեր՝ քաղցր պանիրով",
+      ru: "Вкусный бургер с плавленым сыром",
+      en: "Delicious burger with melted cheese"
+    },
     price: 25,
     discount: 50,
     image: "/images/classic-cheeseburger.webp",
-    category: "Hot dishes",
+    category: { hy: "Ժմռոտ ճաշատեսակներ", ru: "Горячие блюда", en: "Hot dishes" },
+    isPopular: true
   },
   {
     id: 5,
-    name: "Grilled Salmon",
-    description: "Fresh salmon fillet with a lemon-dill sauce",
+    name: {
+      hy: "Գրիլ Սաղմոն",
+      ru: "Лосось на гриле",
+      en: "Grilled Salmon"
+    },
+    description: {
+      hy: "Թարմ սաղմոն՝ խառը մարինադով",
+      ru: "Свежий лосось с маринадом",
+      en: "Fresh salmon with marinade"
+    },
     price: 35,
     discount: 0,
     image: "/images/grilled-salmon.webp",
-    category: "Fishy",
+    category: { hy: "Ջրային", ru: "Рыбные", en: "Fishy" }
   },
   {
     id: 6,
-    name: "BBQ Ribs",
-    description: "Slow-cooked pork ribs with a smoky BBQ sauce",
+    name: {
+      hy: "BBQ Խոզի Միս",
+      ru: "BBQ Рёбрышки",
+      en: "BBQ Ribs"
+    },
+    description: {
+      hy: "Խոզի միս՝ համեղ BBQ սոուսով",
+      ru: "Свинина с вкусным BBQ соусом",
+      en: "Pork ribs with tasty BBQ sauce"
+    },
     price: 45,
     discount: 0,
     image: "/images/bbq-ribs.webp",
-    category: "Prepared on the grill",
+    category: { hy: "Մարինացված Գրիլ", ru: "Приготовлено на гриле", en: "Prepared on the grill" }
   },
   {
     id: 7,
-    name: "Caesar Salad",
-    description: "Crisp romaine lettuce with Caesar dressing, croutons, and parmesan cheese.",
+    name: {
+      hy: "Կեսար Սալաթ",
+      ru: "Салат Цезарь",
+      en: "Caesar Salad"
+    },
+    description: {
+      hy: "Թարմ կանաչիներ՝ դասական սոուսով",
+      ru: "Свежие овощи с классическим соусом",
+      en: "Fresh greens with classic dressing"
+    },
     price: 15,
     discount: 0,
     image: "/images/caesar-salad.jpg",
-    category: "Salads",
+    category: { hy: "Սալաթներ", ru: "Салаты", en: "Salads" }
   },
   {
     id: 8,
-    name: "Mushroom Soup",
-    description: "Creamy soup with a mix of wild mushrooms.",
+    name: {
+      hy: "Սնկի Սոուս",
+      ru: "Грибной суп",
+      en: "Mushroom Soup"
+    },
+    description: {
+      hy: "Համեղ սնկով սոուս",
+      ru: "Вкусный грибной суп",
+      en: "Delicious mushroom soup"
+    },
     price: 12,
     discount: 0,
     image: "/images/mushroom-soup.jpg",
-    category: "Soups",
+    category: { hy: "Սոուսներ", ru: "Супы", en: "Soups" }
   },
+  {
+    id: 9,
+    name: {
+      hy: "Կարբոնարա Պաստա",
+      ru: "Паста Карбонара",
+      en: "Carbonara Pasta"
+    },
+    description: {
+      hy: "Դասական իտալական պաստան՝ կրեմային սոուսով, խրթխրթան բեկոնով",
+      ru: "Классическая итальянская паста с кремовым соусом и беконом",
+      en: "Classic Italian pasta with creamy sauce and crispy bacon"
+    },
+    price: 18,
+    discount: 10,
+    image: "/images/carbonara-pasta.jpg",
+    category: { hy: "Պաստա", ru: "Паста", en: "Pasta" }
+  }
 ];

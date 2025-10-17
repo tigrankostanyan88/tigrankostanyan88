@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { motion } from "framer-motion";
 import Navigation from "@/components/Navigation";
 import Sidebar from "@/components/ui/sidebar";
@@ -6,50 +6,40 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Search, Heart, Plus, Minus } from "lucide-react";
+import { Search, Heart, Plus, Minus, Eye } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import ProductDetailModal from "@/components/ProductDetailModal";
 import { toast } from "@/hooks/use-toast";
-import { products, Product } from "@/data/products";
-
-const categories = [
-  "All",
-  "Breakfasts",
-  "Cold snacks",
-  "Salads",
-  "Soups",
-  "Hot dishes",
-  "Fishy",
-  "Prepared on the grill",
-  "Grilled",
-  "Kebabs",
-  "Accessories",
-  "Khachapuris",
-  "Pizzas",
-  "Pides",
-  "Combos",
-];
+import { Product } from "@/data/products";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useProducts } from "@/contexts/ProductContext";
 
 interface MenuProps {
   onBookingOpen: () => void;
 }
 
 const Menu = ({ onBookingOpen }: MenuProps) => {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const { t } = useLanguage();
+  const { products, loading, error } = useProducts();
+  const [selectedCategory, setSelectedCategory] = useState("categories.All");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("default");
   const [selectedProduct, setSelectedProduct] = useState<(Product & { stock: number; quantity: number }) | null>(null);
   const [quantities, setQuantities] = useState<Record<number, number>>({});
   const { addToCart, favorites, toggleFavorite, cart } = useCart();
 
+  const categories = ["categories.All", ...Array.from(new Set(products.map((p) => p.category)))];
+
   const filteredItems = products
     .filter((item) =>
-      selectedCategory === "All" ? true : item.category === selectedCategory
+      selectedCategory === "categories.All" ? true : item.category === selectedCategory
     )
-    .filter((item) =>
-      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchQuery.toLowerCase())
-    )
+    .filter((item) => {
+      const name = t(item.name);
+      const description = t(item.description);
+      return name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+             description.toLowerCase().includes(searchQuery.toLowerCase());
+    })
     .sort((a, b) => {
       if (sortBy === "price-low") return a.price - b.price;
       if (sortBy === "price-high") return b.price - a.price;
@@ -71,7 +61,11 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
     const qty = getQuantity(item.id);
     addToCart(
       {
-        ...item,
+        id: item.id,
+        name: t(item.name),
+        price: item.price,
+        image: item.image,
+        description: t(item.description),
         stock: 10, // Assuming a default stock of 10
         quantity: qty,
         discount: item.discount,
@@ -80,8 +74,8 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
       event
     );
     toast({
-      title: "Added to cart!",
-      description: `${qty}x ${item.name}`,
+      title: t("addedToCart"),
+      description: `${qty}x ${t(item.name)}`,
     });
     setQuantity(item.id, 1);
   };
@@ -98,7 +92,7 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl sm:text-5xl md:text-6xl font-display font-bold mb-4"
           >
-            Our <span className="text-gradient-fire">Menu</span>
+            {t("menu.title")}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -106,7 +100,7 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
             transition={{ delay: 0.2 }}
             className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto"
           >
-            Explore our extensive selection of premium dishes, crafted with the finest ingredients
+            {t("menu.subtitle")}
           </motion.p>
         </div>
       </section>
@@ -117,6 +111,7 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
           <Sidebar
             selectedCategory={selectedCategory}
             onSelectCategory={setSelectedCategory}
+            categories={categories.map(c => ({ key: c, name: t(c) }))}
           />
           <div className="flex-1 lg:pl-8">
             {/* Search and Filter Bar */}
@@ -124,7 +119,7 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
-                placeholder="Search dishes..."
+                placeholder={t("menu.search")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10"
@@ -132,23 +127,23 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
             </div>
             <Select value={sortBy} onValueChange={setSortBy}>
               <SelectTrigger className="w-full md:w-48">
-                <SelectValue placeholder="Sort by" />
+                <SelectValue placeholder={t("menu.sortBy")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="default">Default</SelectItem>
-                <SelectItem value="price-low">Price: Low to High</SelectItem>
-                <SelectItem value="price-high">Price: High to Low</SelectItem>
+                <SelectItem value="default">{t("menu.default")}</SelectItem>
+                <SelectItem value="price-low">{t("menu.priceLow")}</SelectItem>
+                <SelectItem value="price-high">{t("menu.priceHigh")}</SelectItem>
               </SelectContent>
             </Select>
             <div className="lg:hidden">
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select a category" />
+                  <SelectValue placeholder={t("menu.selectCategory")} />
                 </SelectTrigger>
                 <SelectContent>
-                  {categories.map((category) => (
-                    <SelectItem key={category} value={category}>
-                      {category}
+                  {categories.map((categoryKey) => (
+                    <SelectItem key={categoryKey} value={categoryKey}>
+                      {t(categoryKey)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -157,10 +152,12 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
           </div>
 
           <div>
-            {filteredItems.length === 0 ? (
+            {loading && <p>Loading...</p>}
+            {error && <p>Error: {error}</p>}
+            {!loading && !error && filteredItems.length === 0 ? (
               <div className="text-center py-20">
                 <p className="text-muted-foreground text-lg">
-                  No items found matching your search.
+                  {t("menu.noItems")}
                 </p>
               </div>
             ) : (
@@ -176,7 +173,7 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
                       <div className="relative overflow-hidden aspect-video">
                         <img
                           src={item.image}
-                          alt={item.name}
+                          alt={t(item.name)}
                           className="w-full h-full object-cover group-hover:scale-110 transition-smooth cursor-pointer"
                           onClick={() => setSelectedProduct({ ...item, stock: 10, quantity: 1 })}
                         />
@@ -199,9 +196,9 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
                         </button>
                       </div>
                       <div className="p-5 flex flex-col flex-grow">
-                        <div className="flex items-start justify-between mb-2">
-                          <h3 className="text-lg font-display font-semibold">
-                            {item.name}
+                        <div className="flex items-start justify-between mb-2 gap-2">
+                          <h3 className="text-lg font-display font-semibold whitespace-nowrap overflow-hidden text-ellipsis">
+                            {t(item.name)}
                           </h3>
                           <div className="text-right">
                             <span className="text-destructive font-bold text-lg">
@@ -215,7 +212,7 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
                           </div>
                         </div>
                         <p className="text-muted-foreground text-sm mb-4 flex-grow h-10 overflow-hidden text-ellipsis" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
-                          {item.description}
+                          {t(item.description)}
                         </p>
 
                         <div className="flex items-center gap-2 mb-3">
@@ -255,15 +252,15 @@ const Menu = ({ onBookingOpen }: MenuProps) => {
                             }
                           >
                             {cart.some((cartItem) => cartItem.id === item.id)
-                              ? "In Cart"
-                              : "Add to Cart"}
+                              ? t("inCart")
+                              : t("addToCart")}
                           </Button>
                           <Button
                             variant="outline"
-                            size="sm"
+                            size="icon"
                             onClick={() => setSelectedProduct({ ...item, stock: 10, quantity: 1 })}
                           >
-                            Details
+                            <Eye className="h-4 w-4" />
                           </Button>
                         </div>
                       </div>

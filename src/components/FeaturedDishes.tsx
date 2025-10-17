@@ -3,12 +3,20 @@ import { Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/contexts/CartContext";
-import { products, Product } from "@/data/products";
+import { Product } from "@/data/products";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useProducts } from "@/contexts/ProductContext";
 
 const FeaturedDishes = () => {
   const { addToCart, cart } = useCart();
-  const signatureDishes = products.filter(
-    (product) => product.category === "signature"
+  const { t } = useLanguage();
+  const { products } = useProducts();
+  const signatureDishes = products.filter((product) =>
+    [
+      t("categories.Grilled"),
+      t("categories.Salads"),
+      t("categories.Soups"),
+    ].includes(t(product.category))
   );
 
   const handleAddToCart = (
@@ -17,7 +25,11 @@ const FeaturedDishes = () => {
   ) => {
     addToCart(
       {
-        ...dish,
+        id: dish.id,
+        name: t(dish.name),
+        price: dish.price,
+        image: dish.image,
+        description: t(dish.description),
         stock: 10,
         quantity: 1,
         discount: dish.discount,
@@ -38,10 +50,10 @@ const FeaturedDishes = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-4">
-            <span className="text-gradient-fire">Signature Dishes</span>
+            <span className="text-gradient-fire">{t("featuredDishes.title")}</span>
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Indulge in our chef's carefully crafted selection of premium grilled delicacies
+            {t("featuredDishes.subtitle")}
           </p>
         </motion.div>
 
@@ -58,7 +70,7 @@ const FeaturedDishes = () => {
                 <div className="relative overflow-hidden aspect-square">
                   <img
                     src={dish.image}
-                    alt={dish.name}
+                    alt={t(dish.name)}
                     className="w-full h-full object-cover group-hover:scale-110 transition-smooth"
                   />
                   {dish.discount > 0 && (
@@ -71,7 +83,7 @@ const FeaturedDishes = () => {
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-3">
                     <h3 className="text-xl font-display font-semibold">
-                      {dish.name}
+                      {t(dish.name)}
                     </h3>
                     <div className="text-right">
                       <>
@@ -87,7 +99,7 @@ const FeaturedDishes = () => {
                     </div>
                   </div>
                   <p className="text-muted-foreground mb-4">
-                    {dish.description}
+                    {t(dish.description)}
                   </p>
                   <Button
                     variant="outline"
@@ -96,8 +108,8 @@ const FeaturedDishes = () => {
                     disabled={cart.some((item) => item.id === dish.id)}
                   >
                     {cart.some((item) => item.id === dish.id)
-                      ? "In Cart"
-                      : "Add to Cart"}
+                      ? t("featuredDishes.inCart")
+                      : t("featuredDishes.addToCart")}
                   </Button>
                 </div>
               </Card>
@@ -114,7 +126,7 @@ const FeaturedDishes = () => {
         >
           <Link to="/menu">
             <Button variant="hero" size="lg">
-              View Full Menu
+              {t("featuredDishes.viewFullMenu")}
             </Button>
           </Link>
         </motion.div>
