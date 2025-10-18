@@ -7,6 +7,7 @@ export interface Product {
   image: string;
   category: { [key: string]: string };
   isPopular?: boolean;
+  stock: number;
 }
 
 export const products = [
@@ -26,7 +27,8 @@ export const products = [
     discount: 50,
     image: "/images/premium-wagyu-steak.webp",
     category: { hy: "Ամառային", ru: "Гриль", en: "Grilled" },
-    isPopular: true
+    isPopular: true,
+    stock: 10
   },
   {
     id: 2,
@@ -44,7 +46,8 @@ export const products = [
     discount: 0,
     image: "/images/signature-mixed-grill.webp",
     category: { hy: "Մարինացված Գրիլ", ru: "Приготовлено на гриле", en: "Prepared on the grill" },
-    isPopular: true
+    isPopular: true,
+    stock: 15
   },
   {
     id: 3,
@@ -61,7 +64,8 @@ export const products = [
     price: 55,
     discount: 0,
     image: "/images/lamb-chops-royale.webp",
-    category: { hy: "Ժմռոտ ճաշատեսակներ", ru: "Горячие блюда", en: "Hot dishes" }
+    category: { hy: "Ժմռոտ ճաշատեսակներ", ru: "Горячие блюда", en: "Hot dishes" },
+    stock: 20
   },
   {
     id: 4,
@@ -79,7 +83,8 @@ export const products = [
     discount: 50,
     image: "/images/classic-cheeseburger.webp",
     category: { hy: "Ժմռոտ ճաշատեսակներ", ru: "Горячие блюда", en: "Hot dishes" },
-    isPopular: true
+    isPopular: true,
+    stock: 30
   },
   {
     id: 5,
@@ -96,7 +101,8 @@ export const products = [
     price: 35,
     discount: 0,
     image: "/images/grilled-salmon.webp",
-    category: { hy: "Ջրային", ru: "Рыбные", en: "Fishy" }
+    category: { hy: "Ջրային", ru: "Рыбные", en: "Fishy" },
+    stock: 25
   },
   {
     id: 6,
@@ -113,7 +119,8 @@ export const products = [
     price: 45,
     discount: 0,
     image: "/images/bbq-ribs.webp",
-    category: { hy: "Մարինացված Գրիլ", ru: "Приготовлено на гриле", en: "Prepared on the grill" }
+    category: { hy: "Մարինացված Գրիլ", ru: "Приготовлено на гриле", en: "Prepared on the grill" },
+    stock: 18
   },
   {
     id: 7,
@@ -130,7 +137,8 @@ export const products = [
     price: 15,
     discount: 0,
     image: "/images/caesar-salad.jpg",
-    category: { hy: "Սալաթներ", ru: "Салаты", en: "Salads" }
+    category: { hy: "Սալաթներ", ru: "Салаты", en: "Salads" },
+    stock: 50
   },
   {
     id: 8,
@@ -147,7 +155,8 @@ export const products = [
     price: 12,
     discount: 0,
     image: "/images/mushroom-soup.jpg",
-    category: { hy: "Սոուսներ", ru: "Супы", en: "Soups" }
+    category: { hy: "Սոուսներ", ru: "Супы", en: "Soups" },
+    stock: 40
   },
   {
     id: 9,
@@ -164,6 +173,7 @@ export const products = [
     price: 18,
     discount: 10,
     image: "/images/carbonara-pasta.jpg",
-    category: { hy: "Պաստա", ru: "Паста", en: "Pasta" }
+    category: { hy: "Պաստա", ru: "Паста", en: "Pasta" },
+    stock: 35
   }
 ];

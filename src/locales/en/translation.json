@@ -284,5 +284,13 @@
       "name": "Mushroom Soup",
       "description": "Creamy soup with a mix of wild mushrooms."
     }
+  },
+  "home": {
+    "cta": {
+      "title": "Reserve Your Table Today",
+      "subtitle": "Experience the finest in premium grilling and exceptional service. Book your table now for an unforgettable evening.",
+      "bookButton": "Book a Table",
+      "callButton": "Call Us Now"
+    }
   }
 }

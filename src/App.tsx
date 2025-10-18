@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./contexts/CartContext";
 import { FavoriteProvider } from "./contexts/FavoriteContext";
+import { ProductProvider } from "./contexts/ProductContext";
 import Navigation from "./components/Navigation";
 import { Footer } from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
@@ -43,9 +44,10 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <FavoriteProvider>
-          <CartProvider>
-          <Toaster />
-          <Sonner />
+          <ProductProvider>
+            <CartProvider>
+              <Toaster />
+              <Sonner />
           <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
             <div className="flex flex-col min-h-screen">
               <ScrollRestoration />
@@ -70,7 +72,8 @@ const App = () => {
               <BookingModal isOpen={isBookingOpen} onClose={() => setIsBookingOpen(false)} />
             </div>
           </BrowserRouter>
-          </CartProvider>
+            </CartProvider>
+          </ProductProvider>
         </FavoriteProvider>
       </TooltipProvider>
     </QueryClientProvider>

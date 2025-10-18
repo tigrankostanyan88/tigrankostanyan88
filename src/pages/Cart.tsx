@@ -7,17 +7,33 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/contexts/CartContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useProducts } from "@/contexts/ProductContext";
 
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, clearCart, getCartTotal, getCartTotalWithoutDiscount } = useCart();
   const { t } = useLanguage();
+  const { products } = useProducts();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const cartWithDetails = cart.map(cartItem => {
+    const product = products.find(p => p.id === cartItem.id);
+    return {
+      ...cartItem,
+      ...product,
+      name: product?.name || {},
+      description: product?.description || {},
+      image: product?.image || '',
+      price: product?.price || 0,
+      discount: product?.discount || 0,
+      stock: product?.stock || 0,
+    };
+  });
 
   const totalWithoutDiscount = getCartTotalWithoutDiscount();
   const totalWithDiscount = getCartTotal();
   const discount = totalWithoutDiscount - totalWithDiscount;
 
-  if (cart.length === 0) {
+  if (cartWithDetails.length === 0) {
     return (
       <div className="min-h-screen">
         <Navigation onBookingOpen={() => {}} />
@@ -58,7 +74,7 @@ const Cart = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-4">
-              {cart.map((item, index) => (
+              {cartWithDetails.map((item, index) => (
                 <motion.div
                   key={item.id}
                   initial={{ opacity: 0, x: -20 }}
@@ -69,7 +85,7 @@ const Cart = () => {
                   <div className="relative">
                     <img
                       src={item.image}
-                      alt={item.name}
+                      alt={t(item.name)}
                       className="w-full sm:w-24 h-auto sm:h-24 object-cover rounded-lg cursor-pointer"
                       onClick={() => setSelectedImage(item.image)}
                     />

@@ -14,7 +14,11 @@ export function LanguageSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="focus-visible:ring-0 focus-visible:ring-offset-0"
+        >
           <Globe className="h-5 w-5" />
         </Button>
       </DropdownMenuTrigger>

@@ -9,6 +9,7 @@ import MostPopular from "@/components/MostPopular";
 import DiscountedGoods from "@/components/DiscountedGoods";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface HomeProps {
   onBookingOpen: () => void;
@@ -16,6 +17,7 @@ interface HomeProps {
 
 const Home = ({ onBookingOpen }: HomeProps) => {
   const featuredRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
 
   const handleScrollToFeatured = () => {
     featuredRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -43,17 +45,17 @@ const Home = ({ onBookingOpen }: HomeProps) => {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-bold mb-6">
-              Reserve Your Table Today
+              {t("home.cta.title")}
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Experience the finest in premium grilling and exceptional service. Book your table now for an unforgettable evening.
+              {t("home.cta.subtitle")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="hero" size="lg" onClick={onBookingOpen} className="w-full sm:w-auto">
-                Book a Table
+                {t("home.cta.bookButton")}
               </Button>
               <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                Call Us Now
+                {t("home.cta.callButton")}
               </Button>
             </div>
           </motion.div>

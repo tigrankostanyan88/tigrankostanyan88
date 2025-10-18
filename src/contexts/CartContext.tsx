@@ -1,15 +1,11 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useFavoriteAnimation } from "./FavoriteContext";
 import { products } from "@/data/products";
+import { useProducts } from "./ProductContext";
+import { useLanguage } from "./LanguageContext";
 
 interface CartItem {
   id: number;
-  name: string;
-  price: number;
-  discount: number;
-  stock: number;
-  image: string;
-  description: string;
   quantity: number;
 }
 
@@ -17,7 +13,16 @@ interface CartContextType {
   cart: CartItem[];
   favorites: number[];
   addToCart: (
-    item: CartItem,
+    item: {
+      id: number;
+      name: string;
+      price: number;
+      discount: number;
+      stock: number;
+      image: string;
+      description: string;
+      quantity: number;
+    },
     quantity: number,
     event?: React.MouseEvent<HTMLElement>
   ) => void;
@@ -37,6 +42,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [favorites, setFavorites] = useState<number[]>([]);
   const { flyToFavorites } = useFavoriteAnimation();
+  const { t } = useLanguage();
+  const { products: allProducts } = useProducts();
 
   useEffect(() => {
     const savedCart = localStorage.getItem("shop_cart_v1");
@@ -59,7 +66,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   }, [favorites]);
 
   const addToCart = (
-    item: CartItem,
+    item: {
+      id: number;
+      name: string;
+      price: number;
+      discount: number;
+      stock: number;
+      image: string;
+      description: string;
+      quantity: number;
+    },
     quantity: number,
     event?: React.MouseEvent<HTMLElement>
   ) => {
@@ -104,11 +120,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             if (existing) {
               return prev.map((i) =>
                 i.id === item.id
-                  ? { ...i, quantity: i.quantity + quantity, stock: i.stock }
+                  ? { ...i, quantity: i.quantity + quantity }
                   : i
               );
             }
-            return [...prev, { ...item, quantity }];
+            return [...prev, { id: item.id, quantity }];
           });
         }, 1000);
       }
@@ -118,11 +134,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         if (existing) {
           return prev.map((i) =>
             i.id === item.id
-              ? { ...i, quantity: i.quantity + quantity, stock: i.stock }
+              ? { ...i, quantity: i.quantity + quantity }
               : i
           );
         }
-        return [...prev, { ...item, quantity }];
+        return [...prev, { id: item.id, quantity }];
       });
     }
   };
@@ -139,7 +155,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             removeFromCart(id);
             return item;
           }
-          const newQuantity = Math.min(quantity, item.stock);
+          const product = allProducts.find((p) => p.id === id);
+          const stock = product ? product.stock : 0;
+          const newQuantity = Math.min(quantity, stock);
           return { ...item, quantity: newQuantity };
         }
         return item;
@@ -161,15 +179,22 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
-  const getCartTotal = () =>
-    cart.reduce(
-      (sum, item) =>
-        sum + (item.price - (item.price * item.discount) / 100) * item.quantity,
-      0
-    );
+  const getCartTotal = () => {
+    return cart.reduce((total, cartItem) => {
+      const product = allProducts.find((p) => p.id === cartItem.id);
+      if (!product) return total;
+      const price = product.price - (product.price * product.discount) / 100;
+      return total + price * cartItem.quantity;
+    }, 0);
+  };
 
-  const getCartTotalWithoutDiscount = () =>
-    cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const getCartTotalWithoutDiscount = () => {
+    return cart.reduce((total, cartItem) => {
+      const product = allProducts.find((p) => p.id === cartItem.id);
+      if (!product) return total;
+      return total + product.price * cartItem.quantity;
+    }, 0);
+  };
 
   const getCartCount = () =>
     cart.reduce((sum, item) => sum + item.quantity, 0);
