@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { EmblaCarouselType } from 'embla-carousel';
@@ -16,11 +16,18 @@ export const StoriesSection = () => {
   const { t } = useLanguage();
   const [selectedStory, setSelectedStory] = useState<Story | null>(null);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [isFixed, setIsFixed] = useState(false);
+  const storiesRef = useRef<HTMLDivElement>(null);
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: 'start',
+    align: 'center',
     containScroll: 'trimSnaps',
     dragFree: true,
   });
+  const [viewportNode, setViewportNode] = useState<HTMLElement | null>(null);
+  const emblaViewportRef = useCallback((node: HTMLElement | null) => {
+    setViewportNode(node);
+    emblaRef(node);
+  }, [emblaRef]);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 
@@ -38,6 +45,43 @@ export const StoriesSection = () => {
     emblaApi.on('reInit', onSelect);
     emblaApi.on('select', onSelect);
   }, [emblaApi, onSelect]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (storiesRef.current) {
+        const { top } = storiesRef.current.getBoundingClientRect();
+        // The sticky position is top-16, which is 4rem or 64px.
+        // We check if the top of the element is at or above this position.
+        setIsFixed(top <= 64);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
+
+    if (viewportNode) {
+      const wheelListener = (event: WheelEvent) => {
+        if (event.deltaY === 0) return;
+        event.preventDefault();
+        if (emblaApi) {
+          if (event.deltaY > 0) {
+            emblaApi.scrollNext();
+          } else {
+            emblaApi.scrollPrev();
+          }
+        }
+      };
+      viewportNode.addEventListener('wheel', wheelListener);
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+        viewportNode.removeEventListener('wheel', wheelListener);
+      };
+    }
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [emblaApi, viewportNode]);
 
   const stories: Story[] = Array.from({ length: 10 }, (_, i) => ({
     id: i + 1,
@@ -72,13 +116,17 @@ export const StoriesSection = () => {
   return (
     <>
       {/* Stories Bar */}
-      <div className="bg-background border-b border-border py-4 sticky top-16 z-40 backdrop-blur-sm bg-background/95">
+      <div
+        ref={storiesRef}
+        className={`bg-background border-b border-border sticky top-16 z-40 backdrop-blur-sm bg-background/95 transition-all duration-300`}
+        style={{ padding: '10px 0' }}
+      >
         <div className="container mx-auto px-4">
           <div className="relative">
-            <div className="overflow-hidden" ref={emblaRef}>
-              <div className="flex gap-6 -ml-4">
+            <div className="overflow-hidden" ref={emblaViewportRef}>
+              <div className={`flex items-center justify-center gap-6 -ml-4 transition-all duration-300 ${isFixed ? 'h-24' : 'h-32'}`}>
                 {stories.map((story, index) => (
-                  <div key={story.id} className="pl-4" style={{ flex: '0 0 auto' }}>
+                  <div key={story.id} className="pl-4" style={{ flex: '0 0 auto', marginTop: '2px' }}>
                     <button
                       onClick={() => openStory(story)}
                       className="flex-shrink-0 text-center animate-scale-in group"
@@ -86,7 +134,9 @@ export const StoriesSection = () => {
                     >
                       <div className="relative">
                         <div
-                          className={`w-24 h-24 rounded-full p-1 ${
+                          className={`rounded-full p-1 transition-all duration-300 ${
+                            isFixed ? 'w-20 h-20' : 'w-24 h-24'
+                          } ${
                             story.isNew ? 'bg-gradient-to-tr from-primary via-primary-light to-accent' : 'bg-border'
                           }`}
                         >
@@ -99,7 +149,7 @@ export const StoriesSection = () => {
                           </div>
                         </div>
                       </div>
-                      <p className="text-sm mt-2 truncate w-24 text-muted-foreground group-hover:text-foreground transition-colors">
+                      <p className={`text-sm mt-2 truncate text-muted-foreground group-hover:text-foreground transition-all duration-300 ${isFixed ? 'hidden' : 'block'}`}>
                         {story.title}
                       </p>
                     </button>
