@@ -153,7 +153,8 @@
     "addToCart": "Add to Cart"
   },
   "services": {
-    "title": "Our Services",
+    "title1": "Our ",
+    "title2": "Services",
     "subtitle": "At Grillian, we are dedicated to providing an exceptional dining experience with a focus on quality, ambiance, and service.",
     "exquisiteCuisine": "Exquisite Cuisine",
     "exquisiteCuisineDescription": "Our menu features a curated selection of the finest grilled dishes, prepared with locally-sourced ingredients and a passion for flavor.",
